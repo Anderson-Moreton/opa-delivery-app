@@ -1,0 +1,65 @@
+@import url(/css/shared.css);
+
+main section.banner .container .logoHome img {
+    width: 100%;
+    margin-top: 150px;
+}
+
+.logoQuemSomos img {
+    width: 300px;
+    height: 800px;
+}
+
+.quemSomos {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+main .container {
+    text-align: justify;
+    margin-inline: 15rem;
+    margin-block: 2rem;
+    align-items: top;
+}
+
+main .container .row .quemSomos .nossaHistoria {
+    text-align: justify;
+    margin-left: 15px;
+}
+
+main .container .row .quemSomos .nossaHistoria h1 {
+    text-align: left;
+    margin-left: 15px;
+    margin-bottom: 5px;
+}
+
+main .container .row .quemSomos .nossaHistoria h2 {
+    text-align: left;
+    margin-left: 15px;
+    margin-bottom: 5px;
+}
+
+main .container .row .quemSomos .nossaHistoria p {
+    margin: 15px;
+}
+
+.about-image {
+    width: 20rem;
+    border-radius: 15px;
+    object-fit: cover;
+    display: flex;
+}
+
+.align-top {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    gap: 1rem;
+}
+
+.align-top a {
+    font-family: 'Roboto';
+    text-decoration: none;
+}
+

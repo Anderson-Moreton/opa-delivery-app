@@ -1,0 +1,49 @@
+<app-header></app-header>
+
+<main>
+  <!-- Banner -->
+  <section class="banner">
+    <div class="carousel">
+      <img
+        *ngFor="let img of images; let i = index"
+        [src]="img"
+        [class.active]="i === currentIndex"
+      />
+
+      <!-- BOTÕES -->
+      <button class="nav prev" (click)="prev()">‹</button>
+      <button class="nav next" (click)="next()">›</button>
+
+      <!-- BOLINHAS -->
+      <div class="dots">
+        <span
+          *ngFor="let img of images; let i = index"
+          (click)="goTo(i)"
+          [class.active]="i === currentIndex"
+        ></span>
+      </div>
+
+      <div class="overlay">
+        <p class="style-title">Home</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Produtos -->
+  <section class="column-card">
+    <h2>Hamburgueres</h2>
+    <div class="row-card"></div>
+  </section>
+
+  <section class="column-card">
+    <h2>Hotdog</h2>
+    <div class="row-card"></div>
+  </section>
+
+  <section class="column-card">
+    <h2>Bebidas</h2>
+    <div class="row-card"></div>
+  </section>
+</main>
+
+<app-footer></app-footer>
