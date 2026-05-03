@@ -1,8 +1,8 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { HeaderComponent } from '../../components/header/header';
 import { FooterComponent } from '../../components/footer/footer';
+import { ProductCardComponent } from '../../components/product-card/product-card';
 
 @Component({
   selector: 'app-home',
@@ -10,44 +10,93 @@ import { FooterComponent } from '../../components/footer/footer';
   imports: [
     CommonModule,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    ProductCardComponent
   ],
   templateUrl: './home.html',
-  styleUrls: ['./home.css']
+  styleUrl: './home.css'
 })
-export class Home implements OnInit {
+export class Home {
 
-  constructor(private cdr: ChangeDetectorRef) {}
-
-  images = [
-    'assets/img/foto_home.jpg',
-    'assets/img/dogPrincipal.jpg',
-    'assets/img/cardapioDogsMenu.jpg'
-  ];
-
+  // =======================
+  // CAROUSEL
+  // =======================
   currentIndex = 0;
 
-  ngOnInit() {
-    setInterval(() => {
-      this.currentIndex =
-        (this.currentIndex + 1) % this.images.length;
-
-      this.cdr.detectChanges(); // 👈 ESSA LINHA RESOLVE
-    }, 3000);
-  }
+  images = [
+    'assets/img/dogPrincipal.jpg',
+    'assets/img/burguer01.jpg',
+    'assets/img/burguer02.jpg'
+  ];
 
   next() {
-    this.currentIndex =
-      (this.currentIndex + 1) % this.images.length;
+    this.currentIndex = (this.currentIndex + 1) % this.images.length;
   }
 
   prev() {
     this.currentIndex =
-     (this.currentIndex - 1 + this.images.length) % this.images.length;
+      (this.currentIndex - 1 + this.images.length) % this.images.length;
   }
 
   goTo(index: number) {
     this.currentIndex = index;
   }
+
+  // =======================
+  // PRODUTOS
+  // =======================
+  produtos = {
+
+    burguer: [
+      {
+        name: 'X-Burger',
+        price: 15,
+        description: 'Pão, carne, queijo e molho especial',
+        image: 'assets/img/burguer01.jpg'
+      },
+      {
+        name: 'X-Bacon',
+        price: 25,
+        description: 'Hambúrguer com bacon crocante e queijo',
+        image: 'assets/img/burguer05.jpg'
+      },
+      {
+        name: 'X-Salada',
+        price: 20,
+        description: 'Pão, carne, queijo e molho especial',
+        image: 'assets/img/burguer03.jpg'
+      },
+      {
+        name: 'X-Tudo',
+        price: 40,
+        description: 'Hambúrguer com bacon crocante e queijo',
+        image: 'assets/img/burguer08.jpg'
+      }
+    ],
+
+    dog: [
+      {
+        name: 'Hot Dog',
+        price: 12,
+        description: 'Salsicha, batata palha, milho e molho especial',
+        image: 'assets/img/dogSimples.jpeg'
+      }
+    ],
+
+    drink: [
+      {
+        name: 'Coca-Cola',
+        price: 5,
+        description: 'Refrigerante lata 350ml',
+        image: 'assets/img/cocaLata.jpeg'
+      },
+      {
+        name: 'Guaraná Antarctica',
+        price: 5,
+        description: 'Refrigerante lata 350ml',
+        image: 'assets/img/guaranaLata.jpeg'
+      }
+    ]
+  };
 
 }

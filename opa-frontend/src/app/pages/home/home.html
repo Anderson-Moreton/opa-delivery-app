@@ -1,49 +1,79 @@
 <app-header></app-header>
 
 <main>
-  <!-- Banner -->
+
+  <!-- ===================== -->
+  <!-- CAROUSEL -->
+  <!-- ===================== -->
   <section class="banner">
+
     <div class="carousel">
-      <img
+      <img 
         *ngFor="let img of images; let i = index"
         [src]="img"
         [class.active]="i === currentIndex"
       />
+    </div>
 
-      <!-- BOTÕES -->
-      <button class="nav prev" (click)="prev()">‹</button>
-      <button class="nav next" (click)="next()">›</button>
+    <button class="nav prev" (click)="prev()">‹</button>
+    <button class="nav next" (click)="next()">›</button>
 
-      <!-- BOLINHAS -->
-      <div class="dots">
-        <span
-          *ngFor="let img of images; let i = index"
-          (click)="goTo(i)"
-          [class.active]="i === currentIndex"
-        ></span>
-      </div>
+    <div class="dots">
+      <span
+        *ngFor="let img of images; let i = index"
+        (click)="goTo(i)"
+        [class.active]="i === currentIndex">
+      </span>
+    </div>
 
-      <div class="overlay">
-        <p class="style-title">Home</p>
-      </div>
+    <div class="overlay">
+      <h1 class="style-title">Home</h1>
+    </div>
+
+  </section>
+
+  <!-- ===================== -->
+  <!-- BURGUER -->
+  <!-- ===================== -->
+  <section class="column-card">
+    <h2>Hamburgueres</h2>
+
+    <div class="row-card">
+      <app-product-card
+        *ngFor="let product of produtos.burguer"
+        [product]="product">
+      </app-product-card>
     </div>
   </section>
 
-  <!-- Produtos -->
-  <section class="column-card">
-    <h2>Hamburgueres</h2>
-    <div class="row-card"></div>
-  </section>
-
+  <!-- ===================== -->
+  <!-- HOTDOG -->
+  <!-- ===================== -->
   <section class="column-card">
     <h2>Hotdog</h2>
-    <div class="row-card"></div>
+
+    <div class="row-card">
+      <app-product-card
+        *ngFor="let product of produtos.dog"
+        [product]="product">
+      </app-product-card>
+    </div>
   </section>
 
+  <!-- ===================== -->
+  <!-- BEBIDAS -->
+  <!-- ===================== -->
   <section class="column-card">
     <h2>Bebidas</h2>
-    <div class="row-card"></div>
+
+    <div class="row-card">
+      <app-product-card
+        *ngFor="let product of produtos.drink"
+        [product]="product">
+      </app-product-card>
+    </div>
   </section>
+
 </main>
 
 <app-footer></app-footer>
