@@ -1,5 +1,26 @@
 <div class="card">
-  <img [src]="'assets/img/' + product.illustration" alt="">
-  <h3>{{ product.name }}</h3>
-  <p>{{ product.price }}</p>
+
+  <img 
+    class="card-image"
+    [src]="product.image"
+    [alt]="product.name"
+  />
+
+  <div class="card-body">
+
+    <div class="card-header">
+      <span class="card-name">{{ product.name }}</span>
+      <span class="card-price">R$ {{ product.price }}</span>
+    </div>
+
+    <p class="card-description">
+      {{ product.description }}
+    </p>
+
+  </div>
+
+  <div class="card-footer">
+    <button class="card-button">Adicionar</button>
+  </div>
+
 </div>

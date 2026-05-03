@@ -1,0 +1,97 @@
+/* CARD */
+.card {
+    width: 300px;
+    height: auto;
+    background-color: #CEDADA;
+    border-radius: 10px;
+    margin: 12px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* sombra profissional */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* HOVER CARD */
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* IMAGEM */
+.card-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+/* CORPO */
+.card-body {
+    padding: 20px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px; /* menor espaço entre nome e descrição */
+}
+
+/* HEADER */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* NOME */
+.card-name {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+/* PREÇO */
+.card-price {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* DESCRIÇÃO */
+.card-description {
+    font-size: 13px;
+    color: #333;
+    margin-top: 10px;
+    line-height: 1.4;
+    display: -webkit-box;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* FOOTER */
+.card-footer {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 12px;
+}
+
+/* BOTÃO */
+.card-button {
+    background-color: #F8C537;
+    color: #312F2F;
+    border: 1px solid #312F2F;
+    border-radius: 20px;
+    width: 120px;
+    height: 36px;
+    display: flex;
+    align-items: center;      /* centraliza vertical */
+    justify-content: center;  /* centraliza horizontal */
+    margin: 8px auto 12px auto;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+/* HOVER BOTÃO (PRETO DO FOOTER) */
+.card-button:hover {
+    background-color: #312F2F;
+    color: #F8C537;
+    transform: scale(1.05);
+}
