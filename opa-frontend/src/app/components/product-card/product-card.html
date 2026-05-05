@@ -1,13 +1,7 @@
 <div class="card">
-
-  <img 
-    class="card-image"
-    [src]="product.image"
-    [alt]="product.name"
-  />
+  <img class="card-image" [src]="product.image" [alt]="product.name" />
 
   <div class="card-body">
-
     <div class="card-header">
       <span class="card-name">{{ product.name }}</span>
       <span class="card-price">R$ {{ product.price }}</span>
@@ -16,11 +10,9 @@
     <p class="card-description">
       {{ product.description }}
     </p>
-
   </div>
 
   <div class="card-footer">
-    <button class="card-button">Adicionar</button>
+    <button class="card-button" (click)="addToCart()">Adicionar</button>
   </div>
-
 </div>

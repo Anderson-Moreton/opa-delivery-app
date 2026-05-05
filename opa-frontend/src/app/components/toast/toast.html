@@ -1,0 +1,7 @@
+<div 
+  *ngIf="toast.visible()"
+  class="toast"
+  [ngClass]="toast.type()"
+>
+  {{ toast.message() }}
+</div>

@@ -1,0 +1,48 @@
+<div class="page">
+  <app-header></app-header>
+
+  <main>
+    <div class="cart-container">
+      <div class="cart-container">
+        <h2>Meu Carrinho</h2>
+
+        <!-- carrinho vazio -->
+        <div *ngIf="cartService.getItems().length === 0" class="empty-cart">
+          Seu carrinho está vazio.
+          <br />
+          Adicione produto(s)!
+        </div>
+
+        <!-- lista -->
+        <div class="cart-list" *ngIf="cartService.getItems().length > 0">
+          <div class="cart-item" *ngFor="let item of cartService.getItems()">
+            <div class="cart-info">
+              <span class="name">{{ item.name }}</span>
+              <span class="price">R$ {{ item.price }}</span>
+            </div>
+
+            <div class="quantity-controls">
+              <button (click)="cartService.decreaseQuantity(item)">-</button>
+
+              <span class="quantity">{{ item.quantity }}</span>
+
+              <button (click)="cartService.increaseQuantity(item)">+</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- total -->
+        <div class="cart-total" *ngIf="cartService.getItems().length > 0">
+          Total: R$ {{ cartService.getTotal() }}
+        </div>
+        <div class="cart-actions" *ngIf="cartService.getItems().length > 0">
+          <button class="clear-btn" (click)="cartService.clearCart()">Esvaziar Carrinho</button>
+
+          <button class="checkout-btn" (click)="checkout()">Finalizar Pedido</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <app-footer></app-footer>
+</div>

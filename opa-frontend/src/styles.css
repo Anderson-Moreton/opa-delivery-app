@@ -2,8 +2,20 @@
     margin: 0;
 }
 
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 /* HEADER FIXO - COMPENSAÇÃO */
 main {
+    flex: 1; /* Empurra o footer pra baixo */
     margin-top: 5rem;
     margin-block-end: 3rem;
 }
