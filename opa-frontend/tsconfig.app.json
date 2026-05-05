@@ -3,9 +3,9 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "./out-tsc/app",
-    "types": []
+    "outDir": "./out-tsc/app"
   },
+  "files": [],
   "include": [
     "src/**/*.ts"
   ],
