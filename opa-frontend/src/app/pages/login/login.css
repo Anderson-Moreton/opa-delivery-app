@@ -1,0 +1,107 @@
+/* página */
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* conteúdo */
+main {
+  flex: 1;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 2rem;
+}
+
+/* card login */
+.login-container {
+  width: 100%;
+  max-width: 400px;
+
+  background: #CEDADA;
+  border: 1px solid #312F2F;
+  border-radius: 12px;
+
+  padding: 2rem;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* título */
+.login-container h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* formulário */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* grupo */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* label */
+label {
+  font-weight: 600;
+}
+
+/* input */
+input {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #312F2F;
+
+  font-size: 1rem;
+}
+
+/* botão */
+button {
+  background: #F8C537;
+  border: 1px solid #312F2F;
+  border-radius: 10px;
+  padding: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* hover */
+button:hover {
+  background: #312F2F;
+  color: #F8C537;
+}
+
+/* cadastro */
+.register-link {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  font-size: 0.95rem;
+}
+
+/* link */
+.register-link a {
+  color: #312F2F;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+/* hover */
+.register-link a:hover {
+  color: #F8C537;
+}
