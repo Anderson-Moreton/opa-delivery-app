@@ -18,9 +18,7 @@ import { ProductCardComponent } from '../../components/product-card/product-card
 })
 export class Home {
 
-  // =======================
   // CAROUSEL
-  // =======================
   currentIndex = 0;
 
   images = [
@@ -42,9 +40,7 @@ export class Home {
     this.currentIndex = index;
   }
 
-  // =======================
   // PRODUTOS
-  // =======================
   produtos = {
 
     burguer: [
