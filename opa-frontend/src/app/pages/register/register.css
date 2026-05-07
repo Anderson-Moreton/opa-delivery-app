@@ -1,0 +1,140 @@
+/* page layout */
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* content */
+main {
+  flex: 1;
+
+  display: flex;
+  justify-content: center;
+
+  padding: 7rem 1rem 3rem;
+}
+
+/* register container */
+.register-container {
+  width: 100%;
+  max-width: 500px;
+
+  background: #CEDADA;
+  border: 1px solid #312F2F;
+  border-radius: 12px;
+
+  padding: 2rem;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* title */
+.register-container h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* form */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+/* section title */
+.section-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+
+  color: #312F2F;
+}
+
+/* form group */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* label */
+label {
+  font-weight: 600;
+}
+
+/* input */
+input {
+  padding: 12px;
+
+  border-radius: 8px;
+  border: 1px solid #312F2F;
+
+  font-size: 1rem;
+
+  outline: none;
+  transition: 0.2s ease;
+}
+
+/* input focus */
+input:focus {
+  border-color: #F8C537;
+  box-shadow: 0 0 0 3px rgba(248, 197, 55, 0.3);
+}
+
+/* button */
+button {
+  margin-top: 1rem;
+
+  background: #F8C537;
+  border: 1px solid #312F2F;
+  border-radius: 10px;
+
+  padding: 12px;
+
+  font-weight: 600;
+  font-size: 1rem;
+
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: all 0.25s ease;
+}
+
+/* button hover */
+button:hover {
+  background: #312F2F;
+  color: #F8C537;
+}
+
+/* phone group */
+.phone-group {
+  display: flex;
+  gap: 10px;
+}
+
+/* country select */
+.phone-group select {
+  width: 120px;
+
+  border: 1px solid #312F2F;
+  border-radius: 8px;
+
+  padding: 12px;
+
+  background: white;
+
+  font-size: 1rem;
+
+  outline: none;
+}
+
+/* phone input */
+.phone-group input {
+  flex: 1;
+}

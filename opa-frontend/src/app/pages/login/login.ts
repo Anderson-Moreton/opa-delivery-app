@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 import { HeaderComponent } from '../../components/header/header';
 import { FooterComponent } from '../../components/footer/footer';
@@ -11,6 +12,7 @@ import { FooterComponent } from '../../components/footer/footer';
   imports: [
     CommonModule,
     FormsModule,
+    RouterModule,
     HeaderComponent,
     FooterComponent
   ],
