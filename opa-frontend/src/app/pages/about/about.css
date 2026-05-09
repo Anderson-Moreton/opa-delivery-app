@@ -64,7 +64,7 @@ main {
 
 .about-text {
   background: #E6E09A;
-  border: 2px solid #312F2F;
+  border: 1px solid #312F2F;
   border-radius: 16px;
   padding: 1.5rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
