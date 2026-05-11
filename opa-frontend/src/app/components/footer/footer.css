@@ -77,3 +77,225 @@
 .alert {
     color: rgb(248, 88, 88);
 }
+
+/* responsive footer */
+/* RESPONSIVO */
+@media (max-width: 768px) {
+
+  .menu-mapa {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+
+    text-align: center;
+  }
+
+  .logoOpa {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .logoOpa img {
+    height: 90px;
+    margin: 0;
+    padding: 0;
+  }
+
+  .mapaSite,
+  .funcionamento,
+  .redesSociais {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .no-bold {
+    font-size: 1.7rem;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .list-menu-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 0.4rem;
+  }
+
+  .funcionamento p {
+    font-size: 15px;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  .redesSociais .list-menu-footer {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    gap: 1rem;
+  }
+
+  .redesSociais .list-menu-footer li {
+    margin: 0;
+    padding: 0;
+  }
+
+  .redesSociais img {
+    width: 38px;
+    height: 38px;
+  }
+
+  .container {
+    padding: 2rem 1rem;
+  }
+
+}
+
+/* MOBILE PEQUENO */
+@media (max-width: 620px) {
+
+  .menu-mapa {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    gap: 2rem;
+  }
+
+  .logoOpa img {
+    height: 70px;
+  }
+
+  .mapaSite,
+  .funcionamento,
+  .redesSociais {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin: 0;
+    padding: 0;
+  }
+
+  .no-bold {
+    font-size: 1.3rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .list-menu-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 0.3rem;
+  }
+
+  .list-menu-footer li {
+    text-align: center;
+  }
+
+  .funcionamento p {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  .redesSociais .list-menu-footer {
+    flex-direction: row;
+    justify-content: center;
+
+    gap: 0.8rem;
+  }
+
+  .redesSociais img {
+    width: 32px;
+    height: 32px;
+  }
+
+}
+
+/* TELAS EXTREMAMENTE PEQUENAS */
+@media (max-width: 400px) {
+
+  .menu-mapa {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    gap: 1.8rem;
+  }
+
+  /* LOGO NO TOPO */
+  .logoOpa {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+
+    order: -1;
+  }
+
+  .logoOpa img {
+    height: 55px;
+
+    margin: 0;
+    padding: 0;
+  }
+
+  .mapaSite,
+  .funcionamento,
+  .redesSociais {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin: 0;
+    padding: 0;
+  }
+
+  .no-bold {
+    font-size: 1rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .funcionamento p,
+  .list-menu-footer a {
+    font-size: 11px;
+    line-height: 1.4;
+  }
+
+  .list-menu-footer {
+    gap: 0.3rem;
+  }
+
+  .redesSociais .list-menu-footer {
+    flex-direction: row;
+    justify-content: center;
+    gap: 0.6rem;
+  }
+
+  .redesSociais img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .container {
+    padding: 1.5rem 0.7rem;
+  }
+
+}
