@@ -6,6 +6,8 @@ import { RegisterComponent } from './pages/register/register';
 import { AboutComponent } from './pages/about/about';
 import { ContactComponent } from './pages/contact/contact';
 
+import { AdminLoginComponent } from './pages/admin-login/admin-login';
+
 export const routes: Routes = [
   {
     path: '',
@@ -30,6 +32,14 @@ export const routes: Routes = [
   {
     path: 'contact',
     component: ContactComponent
+  },
+  {
+    path: 'admin-login',
+    component: AdminLoginComponent
+  },
+  {
+    path: 'admin/dashboard',
+    component: Home
   }
 
 ];
