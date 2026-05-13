@@ -7,6 +7,7 @@ import { AboutComponent } from './pages/about/about';
 import { ContactComponent } from './pages/contact/contact';
 
 import { AdminLoginComponent } from './pages/admin-login/admin-login';
+import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard';
 
 export const routes: Routes = [
   {
@@ -39,7 +40,7 @@ export const routes: Routes = [
   },
   {
     path: 'admin/dashboard',
-    component: Home
+    component: AdminDashboardComponent
   }
 
 ];

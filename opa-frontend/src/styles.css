@@ -5,6 +5,7 @@
 html, body {
   height: 100%;
   margin: 0;
+  padding: 0;
 }
 
 .page {
@@ -13,11 +14,11 @@ html, body {
   min-height: 100vh;
 }
 
-/* HEADER FIXO - COMPENSAÇÃO */
-main {
-    flex: 1; /* Empurra o footer pra baixo */
-    margin-top: 5rem;
-    margin-block-end: 3rem;
+/* SOMENTE páginas públicas */
+.public-layout main {
+  flex: 1;
+  margin-top: 5rem;
+  margin-bottom: 3rem;
 }
 
 /* ---------------- BANNER ---------------- */
