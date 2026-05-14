@@ -1,0 +1,124 @@
+.create-product-page {
+  width: 100%;
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: #f5f5f5;
+
+  padding: 2rem;
+}
+
+.form-card {
+  width: 100%;
+  max-width: 600px;
+
+  background: white;
+
+  padding: 2rem;
+
+  border-radius: 12px;
+
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.form-card h1 {
+  margin-bottom: 2rem;
+
+  text-align: center;
+
+  font-family: "Righteous", sans-serif;
+}
+
+/* FORM */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  margin-bottom: 0.5rem;
+
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+
+  padding: 0.9rem;
+
+  border: 1px solid #ccc;
+  border-radius: 8px;
+
+  font-size: 1rem;
+
+  outline: none;
+}
+
+textarea {
+  resize: none;
+}
+
+/* BUTTON */
+
+button {
+  width: 100%;
+  height: 45px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #F8C537;
+
+  font-weight: bold;
+  font-size: 1rem;
+
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: #dca91d;
+
+  transform: translateY(-2px);
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.save-btn {
+  background: #F8C537;
+}
+
+.cancel-btn {
+  background: #ff6b6b;
+  color: white;
+}
+
+.cancel-btn:hover {
+  opacity: 0.9;
+  background-color: #ff6b6b;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 600px) {
+
+  .form-card {
+    padding: 1.5rem;
+  }
+
+}

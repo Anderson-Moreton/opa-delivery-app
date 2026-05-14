@@ -8,6 +8,7 @@ import { ContactComponent } from './pages/contact/contact';
 
 import { AdminLoginComponent } from './pages/admin-login/admin-login';
 import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard';
+import { AdminCreateProductComponent } from './pages/admin-create-product/admin-create-product';
 
 export const routes: Routes = [
   {
@@ -41,6 +42,14 @@ export const routes: Routes = [
   {
     path: 'admin/dashboard',
     component: AdminDashboardComponent
+  },
+  {
+    path: 'admin/create-product',
+    component: AdminCreateProductComponent
+  }, 
+  {
+    path: 'admin/edit-product/:id',
+    component: AdminCreateProductComponent
   }
 
 ];
