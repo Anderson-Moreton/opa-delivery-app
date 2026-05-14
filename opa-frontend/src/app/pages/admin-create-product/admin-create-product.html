@@ -1,0 +1,52 @@
+<div class="create-product-page">
+  <div class="form-card">
+    <h1>Cadastrar Produto</h1>
+
+    <!-- NOME -->
+    <div class="form-group">
+      <label>Nome do Produto</label>
+
+      <input type="text" placeholder="Digite o nome" [(ngModel)]="name" />
+    </div>
+
+    <!-- DESCRIÇÃO -->
+    <div class="form-group">
+      <label>Descrição</label>
+
+      <textarea rows="4" placeholder="Digite a descrição" [(ngModel)]="description">
+Digite a descrição</textarea
+      >
+    </div>
+
+    <!-- PREÇO -->
+    <div class="form-group">
+      <label>Preço</label>
+
+      <input type="number" placeholder="Digite o preço" [(ngModel)]="price" />
+    </div>
+
+    <!-- CATEGORIA -->
+    <div class="form-group">
+      <label>Categoria</label>
+
+      <select [(ngModel)]="category">
+        <option>Burguer</option>
+        <option>HotDog</option>
+        <option>Bebidas</option>
+      </select>
+    </div>
+
+    <!-- IMAGEM -->
+    <div class="form-group">
+      <label>Imagem do Produto</label>
+
+      <input type="text" placeholder="URL da imagem" [(ngModel)]="image" />
+    </div>
+
+    <!-- BOTÃO -->
+    <div class="form-actions">
+      <button class="cancel-btn" routerLink="/admin/dashboard" type="button">Cancelar</button>
+      <button class="save-btn" (click)="saveProduct()">Salvar Produto</button>
+    </div>
+  </div>
+</div>

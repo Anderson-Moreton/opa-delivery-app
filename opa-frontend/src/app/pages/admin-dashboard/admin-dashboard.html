@@ -1,196 +1,112 @@
 <div class="dashboard">
-
   <!-- SIDEBAR -->
   <aside class="sidebar">
-
     <h1>OPA Admin</h1>
 
-    <button>
-      Cadastrar Produto
-    </button>
+    <button routerLink="/admin/create-product">Cadastrar Produto</button>
 
-    <button>
-      Produtos Cadastrados
-    </button>
+    <button>Produtos Cadastrados</button>
 
-    <button>
-      Editar Categorias
-    </button>
-
+    <button>Editar Categorias</button>
   </aside>
 
   <!-- CONTENT -->
   <main class="content">
-
     <h2>Categorias</h2>
 
     <div class="products-section">
-
       <!-- BURGUER -->
       <div class="category-box">
-
         <h3>Burguer</h3>
 
-        <!-- ITEM -->
-        <div class="product-item">
+        @for (product of burguers; track product.id) {
+          <div class="product-item">
+            <div class="product-left">
+              <img [src]="product.image" [alt]="product.name" />
 
-          <div class="product-left">
+              <div class="product-info">
+                <strong>
+                  {{ product.name }}
+                </strong>
 
-            <img
-              src="assets/img/burguer01.jpg"
-              alt="X-Burguer"
-            >
-
-            <div class="product-info">
-
-              <strong>X-Burguer</strong>
-
-              <p>
-                Pão, hambúrguer, queijo e molho especial
-              </p>
-
+                <p>
+                  {{ product.description }}
+                </p>
+              </div>
             </div>
 
-          </div>
+            <div class="actions">
+              <button class="edit-btn" [routerLink]="['/admin/edit-product', product.id]">
+                Editar
+              </button>
 
-          <div class="actions">
-
-            <button class="edit-btn">
-              Editar
-            </button>
-
-            <button class="delete-btn">
-              Excluir
-            </button>
-
-          </div>
-
-        </div>
-
-        <!-- ITEM -->
-        <div class="product-item">
-
-          <div class="product-left">
-
-            <img
-              src="assets/img/burguer03.jpg"
-              alt="X-Salada"
-            >
-
-            <div class="product-info">
-
-              <strong>X-Salada</strong>
-
-              <p>
-                Hambúrguer, alface, tomate e queijo
-              </p>
-
+              <button class="delete-btn" (click)="deleteProduct(product.id)">Excluir</button>
             </div>
-
           </div>
-
-          <div class="actions">
-
-            <button class="edit-btn">
-              Editar
-            </button>
-
-            <button class="delete-btn">
-              Excluir
-            </button>
-
-          </div>
-
-        </div>
-
+        }
       </div>
 
       <!-- HOTDOG -->
       <div class="category-box">
-
         <h3>HotDog</h3>
 
-        <div class="product-item">
+        @for (product of hotdogs; track product.id) {
+          <div class="product-item">
+            <div class="product-left">
+              <img [src]="product.image" [alt]="product.name" />
 
-          <div class="product-left">
+              <div class="product-info">
+                <strong>
+                  {{ product.name }}
+                </strong>
 
-            <img
-              src="assets/img/hotdog.jpg"
-              alt="Dog Tradicional"
-            >
-
-            <div class="product-info">
-
-              <strong>Dog Tradicional</strong>
-
-              <p>
-                Salsicha, batata palha e molho especial
-              </p>
-
+                <p>
+                  {{ product.description }}
+                </p>
+              </div>
             </div>
 
+            <div class="actions">
+              <button class="edit-btn" [routerLink]="['/admin/edit-product', product.id]">
+                Editar
+              </button>
+
+              <button class="delete-btn" (click)="deleteProduct(product.id)">Excluir</button>
+            </div>
           </div>
-
-          <div class="actions">
-
-            <button class="edit-btn">
-              Editar
-            </button>
-
-            <button class="delete-btn">
-              Excluir
-            </button>
-
-          </div>
-
-        </div>
-
+        }
       </div>
 
       <!-- BEBIDAS -->
       <div class="category-box">
-
         <h3>Bebidas</h3>
 
-        <div class="product-item">
+        @for (product of bebidas; track product.id) {
+          <div class="product-item">
+            <div class="product-left">
+              <img [src]="product.image" [alt]="product.name" />
 
-          <div class="product-left">
+              <div class="product-info">
+                <strong>
+                  {{ product.name }}
+                </strong>
 
-            <img
-              src="assets/img/cocaLata.jpeg"
-              alt="Coca-Cola"
-            >
-
-            <div class="product-info">
-
-              <strong>Coca-Cola</strong>
-
-              <p>
-                Refrigerante lata 350ml
-              </p>
-
+                <p>
+                  {{ product.description }}
+                </p>
+              </div>
             </div>
 
+            <div class="actions">
+              <button class="edit-btn" [routerLink]="['/admin/edit-product', product.id]">
+                Editar
+              </button>
+
+              <button class="delete-btn" (click)="deleteProduct(product.id)">Excluir</button>
+            </div>
           </div>
-
-          <div class="actions">
-
-            <button class="edit-btn">
-              Editar
-            </button>
-
-            <button class="delete-btn">
-              Excluir
-            </button>
-
-          </div>
-
-        </div>
-
+        }
       </div>
-
     </div>
-
   </main>
-
 </div>
