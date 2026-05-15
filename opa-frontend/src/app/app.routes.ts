@@ -9,6 +9,7 @@ import { ContactComponent } from './pages/contact/contact';
 import { AdminLoginComponent } from './pages/admin-login/admin-login';
 import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard';
 import { AdminCreateProductComponent } from './pages/admin-create-product/admin-create-product';
+import { AdminCategoriesComponent } from './pages/admin-categories/admin-categories';
 
 export const routes: Routes = [
   {
@@ -50,6 +51,10 @@ export const routes: Routes = [
   {
     path: 'admin/edit-product/:id',
     component: AdminCreateProductComponent
+  },
+  {
+    path: 'admin/categories',
+    component: AdminCategoriesComponent
   }
 
 ];

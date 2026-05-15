@@ -1,0 +1,42 @@
+<div class="categories-page">
+  <div class="categories-card">
+    <h1>Gerenciar Categorias</h1>
+
+    <!-- FORM -->
+    <div class="form-section">
+      <input type="text" placeholder="Nome da categoria" [(ngModel)]="categoryName" />
+
+      <div class="buttons">
+        <button (click)="saveCategory()">
+          {{ editMode ? 'Salvar Alterações' : 'Adicionar Categoria' }}
+        </button>
+
+        @if (editMode) {
+          <button class="cancel-btn" (click)="cancelEdit()">Cancelar</button>
+        }
+      </div>
+    </div>
+
+    <!-- LIST -->
+    <div class="categories-list">
+      @for (category of categories; track category.id) {
+        <div class="category-item">
+          <span>
+            {{ category.name }}
+          </span>
+
+          <div class="actions">
+            <button class="edit-btn" (click)="editCategory(category)">Editar</button>
+
+            <button class="delete-btn" (click)="deleteCategory(category.id)">Excluir</button>
+          </div>
+        </div>
+      }
+    </div>
+    <!-- BACK BUTTON -->
+
+    <div class="back-section">
+      <button class="back-btn" routerLink="/admin/dashboard">Voltar ao Dashboard</button>
+    </div>
+  </div>
+</div>
