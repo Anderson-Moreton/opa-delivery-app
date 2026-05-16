@@ -3,11 +3,15 @@ import cors from 'cors';
 
 import { pool } from './database/connection';
 
+import productRoutes from './routes/product.routes';
+
 const app = express();
 
 app.use(cors());
 
 app.use(express.json());
+
+app.use('/products', productRoutes);
 
 app.get('/', async (req, res) => {
 
@@ -16,11 +20,11 @@ app.get('/', async (req, res) => {
     const connection =
       await pool.getConnection();
 
-    console.log('MySQL connected 🚀');
+    console.log('MySQL connected');
 
     connection.release();
 
-    res.send('OPA Backend + MySQL 🚀');
+    res.send('OPA Backend + MySQL');
 
   } catch (error) {
 
