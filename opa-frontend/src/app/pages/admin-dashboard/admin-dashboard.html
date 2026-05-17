@@ -13,97 +13,91 @@
     <h2>Produtos Cadastrados</h2>
 
     <div class="products-section">
-      <!-- BURGUER -->
+      <!-- BURGER -->
       <div class="category-box">
-        <h3>Burguer</h3>
+        <h3>Burger</h3>
 
-        @for (product of burguers; track product.id) {
-          <div class="product-item">
-            <div class="product-left">
-              <img [src]="product.image" [alt]="product.name" />
+        <div class="product-item" *ngFor="let product of burger">
+          <div class="product-left">
+            <img [src]="product.image" [alt]="product.name" />
 
-              <div class="product-info">
-                <strong>
-                  {{ product.name }}
-                </strong>
+            <div class="product-info">
+              <strong>
+                {{ product.name }}
+              </strong>
 
-                <p>
-                  {{ product.description }}
-                </p>
-              </div>
-            </div>
-
-            <div class="actions">
-              <button class="edit-btn" [routerLink]="['/admin/edit-product', product.id]">
-                Editar
-              </button>
-
-              <button class="delete-btn" (click)="deleteProduct(product.id)">Excluir</button>
+              <p>
+                {{ product.description }}
+              </p>
             </div>
           </div>
-        }
+
+          <div class="actions">
+            <button class="edit-btn" [routerLink]="['/admin/edit-product', product.id]">
+              Editar
+            </button>
+
+            <button class="delete-btn" (click)="deleteProduct(product.id)">Excluir</button>
+          </div>
+        </div>
       </div>
 
-      <!-- HOTDOG -->
+      <!-- HOT DOG -->
       <div class="category-box">
-        <h3>HotDog</h3>
+        <h3>Hot Dog</h3>
 
-        @for (product of hotdogs; track product.id) {
-          <div class="product-item">
-            <div class="product-left">
-              <img [src]="product.image" [alt]="product.name" />
+        <div class="product-item" *ngFor="let product of hotdog">
+          <div class="product-left">
+            <img [src]="product.image" [alt]="product.name" />
 
-              <div class="product-info">
-                <strong>
-                  {{ product.name }}
-                </strong>
+            <div class="product-info">
+              <strong>
+                {{ product.name }}
+              </strong>
 
-                <p>
-                  {{ product.description }}
-                </p>
-              </div>
-            </div>
-
-            <div class="actions">
-              <button class="edit-btn" [routerLink]="['/admin/edit-product', product.id]">
-                Editar
-              </button>
-
-              <button class="delete-btn" (click)="deleteProduct(product.id)">Excluir</button>
+              <p>
+                {{ product.description }}
+              </p>
             </div>
           </div>
-        }
+
+          <div class="actions">
+            <button class="edit-btn" [routerLink]="['/admin/edit-product', product.id]">
+              Editar
+            </button>
+
+            <button class="delete-btn" (click)="deleteProduct(product.id)">Excluir</button>
+          </div>
+        </div>
       </div>
 
-      <!-- BEBIDAS -->
+      <!-- BEBIDA -->
       <div class="category-box">
-        <h3>Bebidas</h3>
+        <h3>Bebida</h3>
 
-        @for (product of bebidas; track product.id) {
-          <div class="product-item">
-            <div class="product-left">
-              <img [src]="product.image" [alt]="product.name" />
+        <div class="product-item" *ngFor="let product of bebida">
+          <div class="product-left">
+            <img [src]="product.image" [alt]="product.name" />
 
-              <div class="product-info">
-                <strong>
-                  {{ product.name }}
-                </strong>
+            <div class="product-info">
+              <strong>
+                {{ product.name }}
+              </strong>
 
-                <p>
-                  {{ product.description }}
-                </p>
-              </div>
-            </div>
-
-            <div class="actions">
-              <button class="edit-btn" [routerLink]="['/admin/edit-product', product.id]">
-                Editar
-              </button>
-
-              <button class="delete-btn" (click)="deleteProduct(product.id)">Excluir</button>
+              <p>
+                {{ product.description }}
+              </p>
             </div>
           </div>
-        }
+
+          <div class="actions">
+            <button class="edit-btn" [routerLink]="['/admin/edit-product', product.id]">
+              Editar
+            </button>
+
+            <button class="delete-btn" (click)="deleteProduct(product.id)">Excluir</button>
+          </div>
+        </div>
       </div>
     </div>
   </main>

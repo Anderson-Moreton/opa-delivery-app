@@ -43,7 +43,7 @@ export class Home {
   // PRODUTOS
   produtos = {
 
-    burguer: [
+    burger: [
       {
         name: 'X-Burger',
         price: 15,
@@ -79,7 +79,7 @@ export class Home {
       }
     ],
 
-    drink: [
+    bebida: [
       {
         name: 'Coca-Cola',
         price: 5,

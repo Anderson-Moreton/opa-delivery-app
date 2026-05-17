@@ -6,6 +6,8 @@ import { RouterLink } from '@angular/router';
 
 import { ToastService } from '../../services/toast.service';
 
+import { ProductService } from '../../services/product.service';
+
 @Component({
   selector: 'app-admin-create-product',
   standalone: true,
@@ -20,109 +22,184 @@ import { ToastService } from '../../services/toast.service';
 export class AdminCreateProductComponent implements OnInit {
 
   name = '';
+
   description = '';
-  price = '';
-  category = 'Burguer';
+
+  price: number | null = null;
+
+  category = 'Burger';
+
   image = '';
+
   editMode = false;
+
   productId: number | null = null;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private toast: ToastService
+    private toast: ToastService,
+    private productService: ProductService
   ) {}
 
   ngOnInit(): void {
 
-   const id = this.route.snapshot.paramMap.get('id');
+    const id =
+      this.route.snapshot.paramMap.get('id');
 
-   if (id) {
+    if (id) {
 
-     this.editMode = true;
+      this.editMode = true;
 
-     this.productId = Number(id);
+      this.productId = Number(id);
 
-     const products =
-       JSON.parse(localStorage.getItem('products') || '[]');
+      this.productService
+        .getProductById(this.productId)
+        .subscribe({
 
-     const product =
-       products.find(
-         (p: any) => p.id === this.productId
-       );
+          next: (product: any) => {
 
-     if (product) {
+            this.name = product[0].name;
 
-       this.name = product.name;
-       this.description = product.description;
-       this.price = product.price;
-       this.category = product.category;
-       this.image = product.image;
+            this.description =
+              product[0].description;
 
-     } 
+            this.price =
+              product[0].price;
 
-   }
+            this.category =
+              product[0].category;
 
- }
+            this.image =
+              product[0].image;
+
+          },
+
+          error: (error) => {
+
+            console.error(error);
+
+            this.toast.show(
+              'Erro ao carregar produto',
+              'error'
+            );
+
+          }
+
+        });
+
+    }
+
+  }
 
   saveProduct() {
 
-   if (
-     !this.name ||
-     !this.description ||
-     !this.price ||
-     !this.category
-   ) {
+    if (
+      !this.name ||
+      !this.description ||
+      !this.price ||
+      !this.category
+    ) {
 
-     this.toast.show('Preencha todos os campos', 'error');
-     return;
-   }
+      this.toast.show(
+        'Preencha todos os campos',
+        'error'
+      );
 
-   const products =
-     JSON.parse(localStorage.getItem('products') || '[]');
+      return;
 
-   if (this.editMode) {
+    }
 
-     const index =
-       products.findIndex(
-         (p: any) => p.id === this.productId
-       );
+    const product = {
 
-     products[index] = {
-       ...products[index],
-       name: this.name,
-       description: this.description,
-       price: this.price,
-       category: this.category,
-       image: this.image
-     };
+      name: this.name,
 
-     this.toast.show('Produto atualizado com sucesso', 'success');
+      description: this.description,
 
-   } else {
+      price: Number(this.price),
 
-     const newProduct = {
-       id: Date.now(),
-       name: this.name,
-       description: this.description,
-       price: this.price,
-       category: this.category,
-       image: this.image
-     };
+      category: this.category,
 
-     products.push(newProduct);
+      image: this.image
 
-     this.toast.show('Produto cadastrado com sucesso', 'success');
+    };
 
-   }
+    // UPDATE PRODUCT
+    if (
+      this.editMode &&
+      this.productId
+    ) {
 
-   localStorage.setItem(
-     'products',
-     JSON.stringify(products)
-   );
+      this.productService
+        .updateProduct(
+          this.productId,
+          product
+        )
+        .subscribe({
 
-   this.router.navigate(['/admin/dashboard']);
+          next: () => {
 
- }
+            this.toast.show(
+              'Produto atualizado com sucesso',
+              'success'
+            );
+
+            this.router.navigate([
+              '/admin/dashboard'
+            ]);
+
+          },
+
+          error: (error) => {
+
+            console.error(error);
+
+            this.toast.show(
+              'Erro ao atualizar produto',
+              'error'
+            );
+
+          }
+
+        });
+
+    }
+
+    // CREATE PRODUCT
+    else {
+
+      this.productService
+        .createProduct(product)
+        .subscribe({
+
+          next: () => {
+
+            this.toast.show(
+              'Produto cadastrado com sucesso',
+              'success'
+            );
+
+            this.router.navigate([
+              '/admin/dashboard'
+            ]);
+
+          },
+
+          error: (error) => {
+
+            console.error(error);
+
+            this.toast.show(
+              'Erro ao cadastrar produto',
+              'error'
+            );
+
+          }
+
+        });
+
+    }
+
+  }
 
 }

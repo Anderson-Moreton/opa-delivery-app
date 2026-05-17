@@ -11,7 +11,19 @@ app.use(cors());
 
 app.use(express.json());
 
+/* TEST ROUTE */
+
+app.get('/products-test', (req, res) => {
+
+  res.send('products route works');
+
+});
+
+/* PRODUCTS ROUTES */
+
 app.use('/products', productRoutes);
+
+/* ROOT ROUTE */
 
 app.get('/', async (req, res) => {
 
@@ -30,13 +42,17 @@ app.get('/', async (req, res) => {
 
     console.log(error);
 
-    res.status(500).send('Database connection error');
+    res.status(500).send(
+      'Database connection error'
+    );
 
   }
 
 });
 
-const PORT = 3000;
+/* SERVER */
+
+const PORT = 3333;
 
 app.listen(PORT, () => {
 

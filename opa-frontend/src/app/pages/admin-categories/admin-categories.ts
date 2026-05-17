@@ -39,7 +39,7 @@ export class AdminCategoriesComponent implements OnInit {
       this.categories = [
         {
           id: 1,
-          name: 'Burguer'
+          name: 'Burger'
         },
         {
           id: 2,
@@ -47,7 +47,7 @@ export class AdminCategoriesComponent implements OnInit {
         },
         {
           id: 3,
-          name: 'Bebidas'
+          name: 'Bebida'
         }
       ];
 
