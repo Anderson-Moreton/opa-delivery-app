@@ -1,6 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectorRef
+} from '@angular/core';
+
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+
+import {
+  Router,
+  RouterLink,
+  NavigationEnd
+} from '@angular/router';
+
+import { filter } from 'rxjs/operators';
 
 import { ProductService } from '../../services/product.service';
 
@@ -23,12 +35,27 @@ export class AdminDashboardComponent implements OnInit {
   bebida: any[] = [];
 
   constructor(
-    private productService: ProductService
+    private productService: ProductService,
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
 
     this.loadProducts();
+
+    this.router.events
+      .pipe(
+        filter(
+          event =>
+            event instanceof NavigationEnd
+        )
+      )
+      .subscribe(() => {
+
+        this.loadProducts();
+
+      });
 
   }
 
@@ -42,27 +69,35 @@ export class AdminDashboardComponent implements OnInit {
 
           console.log(products);
 
-          this.products = products;
+          this.products = [...products];
 
           this.burger =
             this.products.filter(
               product =>
-                product.category?.trim() === 'Burger'
+                product.category
+                  ?.trim()
+                  .toLowerCase() === 'burger'
             );
 
           this.hotdog =
             this.products.filter(
               product =>
-                product.category?.trim() === 'Hot Dog'
+                product.category
+                  ?.trim()
+                  .toLowerCase() === 'hot dog'
             );
 
           this.bebida =
             this.products.filter(
               product =>
-                product.category?.trim() === 'Bebida'
+                product.category
+                  ?.trim()
+                  .toLowerCase() === 'bebida'
             );
 
           console.log('BURGER:', this.burger);
+
+          this.cdr.detectChanges();
 
         },
 
@@ -76,56 +111,64 @@ export class AdminDashboardComponent implements OnInit {
 
   }
 
-  deleteProduct(id: number) {
+  deleteProduct(id: number): void {
 
-   const confirmDelete =
-     confirm(
-       'Deseja excluir este produto?'
-     );
+    const confirmDelete =
+      confirm(
+        'Deseja excluir este produto?'
+      );
 
-   if (!confirmDelete) {
-     return;
-   }
+    if (!confirmDelete) {
+      return;
+    }
 
-   this.productService
-     .deleteProduct(id)
-     .subscribe({
+    this.productService
+      .deleteProduct(id)
+      .subscribe({
 
-       next: () => {
+        next: () => {
 
-         this.products =
-           this.products.filter(
-             product => product.id !== id
-           );
+          this.products =
+            this.products.filter(
+              product => product.id !== id
+            );
 
-         this.burger =
-           this.products.filter(
-             product =>
-               product.category?.trim() === 'Burger'
-           );
+          this.burger =
+            this.products.filter(
+              product =>
+                product.category
+                  ?.trim()
+                  .toLowerCase() === 'burger'
+            );
 
-         this.hotdog =
-           this.products.filter(
-             product =>
-               product.category?.trim() === 'Hot Dog'
-           );
+          this.hotdog =
+            this.products.filter(
+              product =>
+                product.category
+                  ?.trim()
+                  .toLowerCase() === 'hot dog'
+            );
 
-         this.bebida =
-           this.products.filter(
-             product =>
-               product.category?.trim() === 'Bebida'
-           );
+          this.bebida =
+            this.products.filter(
+              product =>
+                product.category
+                  ?.trim()
+                  .toLowerCase() === 'bebida'
+            );
 
-       },
+          this.cdr.detectChanges();
 
-       error: (error) => {
+        },
 
-         console.error(error);
+        error: (error) => {
 
-       }
+          console.error(error);
 
-    });
+        }
 
-  } 
+      });
+
+  }
 
 }
