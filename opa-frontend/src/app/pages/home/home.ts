@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ChangeDetectorRef } from '@angular/core';
 import { HeaderComponent } from '../../components/header/header';
 import { FooterComponent } from '../../components/footer/footer';
 import { ProductCardComponent } from '../../components/product-card/product-card';
+
+import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'app-home',
@@ -16,15 +19,15 @@ import { ProductCardComponent } from '../../components/product-card/product-card
   templateUrl: './home.html',
   styleUrl: './home.css'
 })
-export class Home {
+export class Home implements OnInit {
 
   // CAROUSEL
   currentIndex = 0;
 
   images = [
-    'assets/img/dogPrincipal.jpg',
-    'assets/img/burguer01.jpg',
-    'assets/img/burguer02.jpg'
+    'assets/img/cardapioBurguersMenu.jpg',
+    'assets/img/cardapioDogsMenu.jpg',
+    'assets/img/cardapioBebidaMenu.jpg'
   ];
 
   next() {
@@ -40,59 +43,68 @@ export class Home {
     this.currentIndex = index;
   }
 
-  // PRODUTOS
-  produtos = {
+  // PRODUCTS
+  products: any[] = [];
 
-    burger: [
-      {
-        name: 'X-Burger',
-        price: 15,
-        description: 'Pão, carne, queijo e molho especial',
-        image: 'assets/img/burguer01.jpg'
-      },
-      {
-        name: 'X-Bacon',
-        price: 25,
-        description: 'Hambúrguer com bacon crocante e queijo',
-        image: 'assets/img/burguer05.jpg'
-      },
-      {
-        name: 'X-Salada',
-        price: 20,
-        description: 'Pão, carne, queijo e molho especial',
-        image: 'assets/img/burguer03.jpg'
-      },
-      {
-        name: 'X-Tudo',
-        price: 40,
-        description: 'Hambúrguer com bacon crocante e queijo',
-        image: 'assets/img/burguer08.jpg'
-      }
-    ],
+  burger: any[] = [];
+  dog: any[] = [];
+  bebida: any[] = [];
 
-    dog: [
-      {
-        name: 'Hot Dog',
-        price: 12,
-        description: 'Salsicha, batata palha, milho e molho especial',
-        image: 'assets/img/dogSimples.jpeg'
-      }
-    ],
+  constructor(
+    private productService: ProductService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
-    bebida: [
-      {
-        name: 'Coca-Cola',
-        price: 5,
-        description: 'Refrigerante lata 350ml',
-        image: 'assets/img/cocaLata.jpeg'
+  ngOnInit(): void {
+    this.loadProducts();
+  }
+
+  loadProducts(): void {
+
+  this.productService
+    .getProducts()
+    .subscribe({
+
+      next: (products: any) => {
+
+        this.products = products;
+
+        this.burger =
+          this.products.filter(
+            product =>
+              product.category
+                ?.trim()
+                .toLowerCase() === 'burger'
+          );
+
+        this.dog =
+          this.products.filter(
+            product =>
+              product.category
+                ?.trim()
+                .toLowerCase() === 'hot dog'
+          );
+
+        this.bebida =
+          this.products.filter(
+            product =>
+              product.category
+                ?.trim()
+                .toLowerCase() === 'bebida'
+          );
+        
+        this.cdr.detectChanges();
+
       },
-      {
-        name: 'Guaraná Antarctica',
-        price: 5,
-        description: 'Refrigerante lata 350ml',
-        image: 'assets/img/guaranaLata.jpeg'
+
+      error: (error) => {
+
+        console.error(error);
+
       }
-    ]
-  };
+
+    });
+
+}
 
 }

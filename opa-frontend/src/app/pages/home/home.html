@@ -13,6 +13,7 @@
       </div>
 
       <button class="nav prev" (click)="prev()">‹</button>
+
       <button class="nav next" (click)="next()">›</button>
 
       <div class="dots">
@@ -34,18 +35,16 @@
       <h2>Burger</h2>
 
       <div class="row-card">
-        <app-product-card *ngFor="let product of produtos.burger" [product]="product">
-        </app-product-card>
+        <app-product-card *ngFor="let product of burger" [product]="product"> </app-product-card>
       </div>
     </section>
 
-    <!-- HOTDOG -->
+    <!-- HOT DOG -->
     <section class="column-card">
       <h2>Hot Dog</h2>
 
       <div class="row-card">
-        <app-product-card *ngFor="let product of produtos.dog" [product]="product">
-        </app-product-card>
+        <app-product-card *ngFor="let product of dog" [product]="product"> </app-product-card>
       </div>
     </section>
 
@@ -54,8 +53,7 @@
       <h2>Bebida</h2>
 
       <div class="row-card">
-        <app-product-card *ngFor="let product of produtos.bebida" [product]="product">
-        </app-product-card>
+        <app-product-card *ngFor="let product of bebida" [product]="product"> </app-product-card>
       </div>
     </section>
   </main>
