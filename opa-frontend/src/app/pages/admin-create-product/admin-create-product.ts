@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { RouterLink } from '@angular/router';
+import { ChangeDetectorRef } from '@angular/core';
 
 import { ToastService } from '../../services/toast.service';
 
@@ -39,58 +40,70 @@ export class AdminCreateProductComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private toast: ToastService,
-    private productService: ProductService
+    private productService: ProductService, 
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
 
-    const id =
-      this.route.snapshot.paramMap.get('id');
+    this.route.paramMap.subscribe(params => {
 
-    if (id) {
+      const id = params.get('id');
 
-      this.editMode = true;
+      if (id) {
 
-      this.productId = Number(id);
+        this.editMode = true;
 
-      this.productService
-        .getProductById(this.productId)
-        .subscribe({
+       this.productId = Number(id);
 
-          next: (product: any) => {
+        this.productService
+          .getProductById(this.productId)
+          .subscribe({
 
-            this.name = product[0].name;
+            next: (response: any) => {
 
-            this.description =
-              product[0].description;
+              console.log('RESPONSE:', response);
 
-            this.price =
-              product[0].price;
+              const product = response[0];
 
-            this.category =
-              product[0].category;
+              console.log(product);
 
-            this.image =
-              product[0].image;
+              this.name = product.name;
 
-          },
+              this.description =
+                product.description;
 
-          error: (error) => {
+              this.price =
+                Number(product.price);
 
-            console.error(error);
+              this.category =
+                product.category;
 
-            this.toast.show(
-              'Erro ao carregar produto',
-              'error'
-            );
+              this.image =
+                product.image;
 
-          }
+              this.cdr.detectChanges();
 
-        });
+            },
 
-    }
+            error: (error) => {
 
-  }
+              console.error(error);
+
+              this.toast.show(
+                'Erro ao carregar produto',
+                'error'
+             );
+
+            }
+
+         });
+
+      }
+
+    });
+
+  } 
 
   saveProduct() {
 
