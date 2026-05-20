@@ -30,30 +30,15 @@
       </div>
     </section>
 
-    <!-- BURGER -->
-    <section class="column-card">
-      <h2>Burger</h2>
+    <!-- DYNAMIC CATEGORIES -->
+    <section class="column-card" *ngFor="let category of categories">
+      <h2>
+        {{ category.name }}
+      </h2>
 
       <div class="row-card">
-        <app-product-card *ngFor="let product of burger" [product]="product"> </app-product-card>
-      </div>
-    </section>
-
-    <!-- HOT DOG -->
-    <section class="column-card">
-      <h2>Hot Dog</h2>
-
-      <div class="row-card">
-        <app-product-card *ngFor="let product of dog" [product]="product"> </app-product-card>
-      </div>
-    </section>
-
-    <!-- BEBIDA -->
-    <section class="column-card">
-      <h2>Bebida</h2>
-
-      <div class="row-card">
-        <app-product-card *ngFor="let product of bebida" [product]="product"> </app-product-card>
+        <app-product-card *ngFor="let product of category.products" [product]="product">
+        </app-product-card>
       </div>
     </section>
   </main>
