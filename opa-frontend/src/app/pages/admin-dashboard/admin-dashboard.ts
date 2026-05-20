@@ -16,6 +16,8 @@ import { filter } from 'rxjs/operators';
 
 import { ProductService } from '../../services/product.service';
 
+import { CategoryService } from '../../services/category.service';
+
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
@@ -26,16 +28,17 @@ import { ProductService } from '../../services/product.service';
   templateUrl: './admin-dashboard.html',
   styleUrls: ['./admin-dashboard.css']
 })
-export class AdminDashboardComponent implements OnInit {
+
+export class AdminDashboardComponent
+implements OnInit {
 
   products: any[] = [];
 
-  burger: any[] = [];
-  hotdog: any[] = [];
-  bebida: any[] = [];
+  categories: any[] = [];
 
   constructor(
     private productService: ProductService,
+    private categoryService: CategoryService,
     private router: Router,
     private cdr: ChangeDetectorRef
   ) {}
@@ -67,35 +70,54 @@ export class AdminDashboardComponent implements OnInit {
 
         next: (products: any) => {
 
-          console.log(products);
-
           this.products = [...products];
 
-          this.burger =
-            this.products.filter(
-              product =>
-                product.category
-                  ?.trim()
-                  .toLowerCase() === 'burger'
+          this.loadCategories();
+
+        },
+
+        error: (error) => {
+
+          console.error(error);
+
+        }
+
+      });
+
+  }
+
+  loadCategories(): void {
+
+    this.categoryService
+      .getCategories()
+      .subscribe({
+
+        next: (categories: any) => {
+
+          this.categories =
+            categories.map(
+              (category: any) => {
+
+                return {
+
+                  ...category,
+
+                  products:
+                    this.products.filter(
+                      product =>
+                        product.category_id === category.id
+                    )
+
+                };
+
+              }
+            )
+            .filter(
+              (category: any) =>
+                category.products.length > 0
             );
 
-          this.hotdog =
-            this.products.filter(
-              product =>
-                product.category
-                  ?.trim()
-                  .toLowerCase() === 'hot dog'
-            );
-
-          this.bebida =
-            this.products.filter(
-              product =>
-                product.category
-                  ?.trim()
-                  .toLowerCase() === 'bebida'
-            );
-
-          console.log('BURGER:', this.burger);
+          console.log(this.categories);
 
           this.cdr.detectChanges();
 
@@ -115,7 +137,7 @@ export class AdminDashboardComponent implements OnInit {
 
     const confirmDelete =
       confirm(
-        'Deseja excluir este produto?'
+        'Do you want to delete this product?'
       );
 
     if (!confirmDelete) {
@@ -133,29 +155,7 @@ export class AdminDashboardComponent implements OnInit {
               product => product.id !== id
             );
 
-          this.burger =
-            this.products.filter(
-              product =>
-                product.category
-                  ?.trim()
-                  .toLowerCase() === 'burger'
-            );
-
-          this.hotdog =
-            this.products.filter(
-              product =>
-                product.category
-                  ?.trim()
-                  .toLowerCase() === 'hot dog'
-            );
-
-          this.bebida =
-            this.products.filter(
-              product =>
-                product.category
-                  ?.trim()
-                  .toLowerCase() === 'bebida'
-            );
+          this.loadCategories();
 
           this.cdr.detectChanges();
 

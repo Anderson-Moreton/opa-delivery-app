@@ -13,11 +13,14 @@
     <h2>Produtos Cadastrados</h2>
 
     <div class="products-section">
-      <!-- BURGER -->
-      <div class="category-box">
-        <h3>Burger</h3>
+      <!-- DYNAMIC CATEGORIES -->
+      <div class="category-box" *ngFor="let category of categories">
+        <h3>
+          {{ category.name }}
+        </h3>
 
-        <div class="product-item" *ngFor="let product of burger">
+        <!-- PRODUCTS -->
+        <div class="product-item" *ngFor="let product of category.products">
           <div class="product-left">
             <img [src]="product.image" [alt]="product.name" />
 
@@ -32,64 +35,7 @@
             </div>
           </div>
 
-          <div class="actions">
-            <button class="edit-btn" [routerLink]="['/admin/edit-product', product.id]">
-              Editar
-            </button>
-
-            <button class="delete-btn" (click)="deleteProduct(product.id)">Excluir</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- HOT DOG -->
-      <div class="category-box">
-        <h3>Hot Dog</h3>
-
-        <div class="product-item" *ngFor="let product of hotdog">
-          <div class="product-left">
-            <img [src]="product.image" [alt]="product.name" />
-
-            <div class="product-info">
-              <strong>
-                {{ product.name }}
-              </strong>
-
-              <p>
-                {{ product.description }}
-              </p>
-            </div>
-          </div>
-
-          <div class="actions">
-            <button class="edit-btn" [routerLink]="['/admin/edit-product', product.id]">
-              Editar
-            </button>
-
-            <button class="delete-btn" (click)="deleteProduct(product.id)">Excluir</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- BEBIDA -->
-      <div class="category-box">
-        <h3>Bebida</h3>
-
-        <div class="product-item" *ngFor="let product of bebida">
-          <div class="product-left">
-            <img [src]="product.image" [alt]="product.name" />
-
-            <div class="product-info">
-              <strong>
-                {{ product.name }}
-              </strong>
-
-              <p>
-                {{ product.description }}
-              </p>
-            </div>
-          </div>
-
+          <!-- ACTIONS -->
           <div class="actions">
             <button class="edit-btn" [routerLink]="['/admin/edit-product', product.id]">
               Editar
