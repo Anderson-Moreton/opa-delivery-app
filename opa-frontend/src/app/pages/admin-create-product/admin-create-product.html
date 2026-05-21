@@ -1,52 +1,55 @@
 <div class="create-product-page">
   <div class="form-card">
-    <h1>Cadastrar Produto</h1>
+    <h1>
+      {{ editMode ? 'Editar Produto' : 'Cadastrar Produto' }}
+    </h1>
 
-    <!-- NOME -->
+    <!-- NAME -->
     <div class="form-group">
-      <label>Nome do Produto</label>
+      <label> Nome do Produto </label>
 
       <input type="text" placeholder="Digite o nome" [(ngModel)]="name" />
     </div>
 
-    <!-- DESCRIÇÃO -->
+    <!-- DESCRIPTION -->
     <div class="form-group">
-      <label>Descrição</label>
+      <label> Descrição </label>
 
-      <textarea rows="4" placeholder="Digite a descrição" [(ngModel)]="description">
-Digite a descrição</textarea
-      >
+      <textarea rows="4" placeholder="Digite a descrição" [(ngModel)]="description"> </textarea>
     </div>
 
-    <!-- PREÇO -->
+    <!-- PRICE -->
     <div class="form-group">
-      <label>Preço</label>
+      <label> Preço </label>
 
       <input type="number" placeholder="Digite o preço" [(ngModel)]="price" />
     </div>
 
-    <!-- CATEGORIA -->
+    <!-- CATEGORY -->
     <div class="form-group">
-      <label>Categoria</label>
+      <label> Categoria </label>
 
-      <select [(ngModel)]="category">
-        <option>Burger</option>
-        <option>Hot Dog</option>
-        <option>Bebida</option>
+      <select [(ngModel)]="category" (change)="onCategoryChange()">
+        <option *ngFor="let category of categories" [value]="category.name">
+          {{ category.name }}
+        </option>
       </select>
     </div>
 
-    <!-- IMAGEM -->
+    <!-- IMAGE -->
     <div class="form-group">
-      <label>Imagem do Produto</label>
+      <label> Imagem do Produto </label>
 
       <input type="text" placeholder="URL da imagem" [(ngModel)]="image" />
     </div>
 
-    <!-- BOTÃO -->
+    <!-- ACTIONS -->
     <div class="form-actions">
       <button class="cancel-btn" routerLink="/admin/dashboard" type="button">Cancelar</button>
-      <button class="save-btn" (click)="saveProduct()">Salvar Produto</button>
+
+      <button class="save-btn" (click)="saveProduct()">
+        {{ editMode ? 'Salvar Alterações' : 'Salvar Produto' }}
+      </button>
     </div>
   </div>
 </div>

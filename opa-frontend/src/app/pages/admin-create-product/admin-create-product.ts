@@ -1,13 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
-import { RouterLink } from '@angular/router';
-import { ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectorRef
+} from '@angular/core';
 
-import { ToastService } from '../../services/toast.service';
+import { CommonModule } from '@angular/common';
+
+import { FormsModule } from '@angular/forms';
+
+import {
+  Router,
+  ActivatedRoute,
+  RouterLink
+} from '@angular/router';
 
 import { ProductService } from '../../services/product.service';
+
+import { CategoryService } from '../../services/category.service';
 
 @Component({
   selector: 'app-admin-create-product',
@@ -20,7 +29,9 @@ import { ProductService } from '../../services/product.service';
   templateUrl: './admin-create-product.html',
   styleUrls: ['./admin-create-product.css']
 })
-export class AdminCreateProductComponent implements OnInit {
+
+export class AdminCreateProductComponent
+implements OnInit {
 
   name = '';
 
@@ -28,9 +39,13 @@ export class AdminCreateProductComponent implements OnInit {
 
   price: number | null = null;
 
-  category = 'Burger';
+  category = '';
+
+  categoryId: number | null = null;
 
   image = '';
+
+  categories: any[] = [];
 
   editMode = false;
 
@@ -39,73 +54,125 @@ export class AdminCreateProductComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private toast: ToastService,
-    private productService: ProductService, 
+    private productService: ProductService,
+    private categoryService: CategoryService,
     private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
 
-    this.route.paramMap.subscribe(params => {
+    this.categoryService
+      .getCategories()
+      .subscribe({
 
-      const id = params.get('id');
+        next: (categories: any) => {
 
-      if (id) {
+          this.categories = categories;
 
-        this.editMode = true;
+          this.route.paramMap.subscribe(params => {
 
-       this.productId = Number(id);
+            const id = params.get('id');
 
-        this.productService
-          .getProductById(this.productId)
-          .subscribe({
+            if (id) {
 
-            next: (response: any) => {
+              this.editMode = true;
 
-              console.log('RESPONSE:', response);
+              this.productId = Number(id);
 
-              const product = response[0];
-
-              console.log(product);
-
-              this.name = product.name;
-
-              this.description =
-                product.description;
-
-              this.price =
-                Number(product.price);
-
-              this.category =
-                product.category;
-
-              this.image =
-                product.image;
-
-              this.cdr.detectChanges();
-
-            },
-
-            error: (error) => {
-
-              console.error(error);
-
-              this.toast.show(
-                'Erro ao carregar produto',
-                'error'
-             );
+              this.loadProduct();
 
             }
 
-         });
+          });
 
-      }
+        },
 
-    });
+        error: (error) => {
 
-  } 
+          console.error(error);
 
-  saveProduct() {
+        }
+
+      });
+
+  }
+
+  loadProduct(): void {
+
+    if (!this.productId) {
+      return;
+    }
+
+    this.productService
+      .getProductById(this.productId)
+      .subscribe({
+
+        next: (response: any) => {
+
+          if (
+            !response ||
+            response.length === 0
+          ) {
+            return;
+          }
+
+          const product = response[0];
+
+          this.name =
+            product.name || '';
+
+          this.description =
+            product.description || '';
+
+          this.price =
+            Number(product.price) || 0;
+
+          this.category =
+            product.category || '';
+
+          this.image =
+            product.image || '';
+
+          this.onCategoryChange();
+
+          this.cdr.detectChanges();
+
+        },
+
+        error: (error) => {
+
+          console.error(error);
+
+        }
+
+      });
+
+  }
+
+  onCategoryChange(): void {
+
+    const selectedCategory =
+      this.categories.find(
+        category =>
+          category.name
+            .trim()
+            .toLowerCase()
+          ===
+          this.category
+            .trim()
+            .toLowerCase()
+      );
+
+    if (selectedCategory) {
+
+      this.categoryId =
+        selectedCategory.id;
+
+    }
+
+  }
+
+  saveProduct(): void {
 
     if (
       !this.name ||
@@ -113,15 +180,10 @@ export class AdminCreateProductComponent implements OnInit {
       !this.price ||
       !this.category
     ) {
-
-      this.toast.show(
-        'Preencha todos os campos',
-        'error'
-      );
-
       return;
-
     }
+
+    this.onCategoryChange();
 
     const product = {
 
@@ -133,11 +195,13 @@ export class AdminCreateProductComponent implements OnInit {
 
       category: this.category,
 
+      category_id: this.categoryId,
+
       image: this.image
 
     };
 
-    // UPDATE PRODUCT
+    // UPDATE
     if (
       this.editMode &&
       this.productId
@@ -152,11 +216,6 @@ export class AdminCreateProductComponent implements OnInit {
 
           next: () => {
 
-            this.toast.show(
-              'Produto atualizado com sucesso',
-              'success'
-            );
-
             this.router.navigate([
               '/admin/dashboard'
             ]);
@@ -167,18 +226,13 @@ export class AdminCreateProductComponent implements OnInit {
 
             console.error(error);
 
-            this.toast.show(
-              'Erro ao atualizar produto',
-              'error'
-            );
-
           }
 
         });
 
     }
 
-    // CREATE PRODUCT
+    // CREATE
     else {
 
       this.productService
@@ -187,11 +241,6 @@ export class AdminCreateProductComponent implements OnInit {
 
           next: () => {
 
-            this.toast.show(
-              'Produto cadastrado com sucesso',
-              'success'
-            );
-
             this.router.navigate([
               '/admin/dashboard'
             ]);
@@ -201,11 +250,6 @@ export class AdminCreateProductComponent implements OnInit {
           error: (error) => {
 
             console.error(error);
-
-            this.toast.show(
-              'Erro ao cadastrar produto',
-              'error'
-            );
 
           }
 
