@@ -23,4 +23,41 @@ export class CategoryService {
 
   }
 
+  createCategory(category: any): Observable<any> {
+
+    return this.http.post(
+      this.apiUrl,
+      category
+    );
+
+  }
+
+  updateCategory(
+    id: number,
+    category: any
+  ): Observable<any> {
+
+    return this.http.put(
+      `${this.apiUrl}/${id}`,
+      category
+    );
+
+  }
+
+  deleteCategory(id: number): Observable<any> {
+
+    return this.http.delete(
+      `${this.apiUrl}/${id}`
+    );
+
+  }
+
+  getMenuCategories(): Observable<any> {
+
+    return this.http.get(
+      `${this.apiUrl}/menu`
+    );
+
+  }
+
 }

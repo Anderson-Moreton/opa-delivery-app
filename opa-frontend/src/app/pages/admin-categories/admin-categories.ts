@@ -1,7 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectorRef
+} from '@angular/core';
+
 import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
+
 import { RouterLink } from '@angular/router';
+
+import { CategoryService } from '../../services/category.service';
 
 @Component({
   selector: 'app-admin-categories',
@@ -14,7 +23,9 @@ import { RouterLink } from '@angular/router';
   templateUrl: './admin-categories.html',
   styleUrls: ['./admin-categories.css']
 })
-export class AdminCategoriesComponent implements OnInit {
+
+export class AdminCategoriesComponent
+implements OnInit {
 
   categories: any[] = [];
 
@@ -24,78 +35,114 @@ export class AdminCategoriesComponent implements OnInit {
 
   editId: number | null = null;
 
+  constructor(
+    private categoryService: CategoryService,
+    private cdr: ChangeDetectorRef
+  ) {}
+
   ngOnInit(): void {
 
-    const savedCategories =
-      localStorage.getItem('categories');
-
-    if (savedCategories) {
-
-      this.categories =
-        JSON.parse(savedCategories);
-
-    } else {
-
-      this.categories = [
-        {
-          id: 1,
-          name: 'Burger'
-        },
-        {
-          id: 2,
-          name: 'HotDog'
-        },
-        {
-          id: 3,
-          name: 'Bebida'
-        }
-      ];
-
-      localStorage.setItem(
-        'categories',
-        JSON.stringify(this.categories)
-      );
-
-    }
+    this.loadCategories();
 
   }
 
-  saveCategory() {
+  loadCategories(): void {
+
+    this.categoryService
+      .getCategories()
+      .subscribe({
+
+        next: (categories: any) => {
+
+          this.categories = [...categories];
+
+          this.cdr.detectChanges();
+
+        },
+
+        error: (error) => {
+
+          console.error(error);
+
+        }
+
+      });
+
+  }
+
+  saveCategory(): void {
 
     if (!this.categoryName.trim()) {
       return;
     }
 
-    if (this.editMode) {
+    const category = {
+      name: this.categoryName
+    };
 
-      const category =
-        this.categories.find(
-          c => c.id === this.editId
-        );
+    // UPDATE
+    if (
+      this.editMode &&
+      this.editId
+    ) {
 
-      if (category) {
-        category.name = this.categoryName;
-      }
+      this.categoryService
+        .updateCategory(
+          this.editId,
+          category
+        )
+        .subscribe({
 
-    } else {
+          next: () => {
 
-      this.categories.push({
-        id: Date.now(),
-        name: this.categoryName
-      });
+            this.loadCategories();
+
+            this.cancelEdit();
+
+            this.cdr.detectChanges();
+
+          },
+
+          error: (error) => {
+
+            console.error(error);
+
+          }
+
+        });
 
     }
 
-    localStorage.setItem(
-      'categories',
-      JSON.stringify(this.categories)
-    );
+    // CREATE
+    else {
 
-    this.cancelEdit();
+      this.categoryService
+        .createCategory(category)
+        .subscribe({
+
+          next: () => {
+
+            this.loadCategories();
+
+            this.cancelEdit();
+
+            this.cdr.detectChanges();
+
+          },
+
+          error: (error) => {
+
+            console.error(error);
+
+          }
+
+        });
+
+    }
 
   }
 
-  editCategory(category: any) {
+  editCategory(category: any): void {
 
     this.editMode = true;
 
@@ -103,36 +150,52 @@ export class AdminCategoriesComponent implements OnInit {
 
     this.categoryName = category.name;
 
+    this.cdr.detectChanges();
+
   }
 
-  deleteCategory(id: number) {
+  deleteCategory(id: number): void {
 
     const confirmDelete =
-      confirm('Deseja excluir esta categoria?');
+      confirm(
+        'Do you want to delete this category?'
+      );
 
     if (!confirmDelete) {
       return;
     }
 
-    this.categories =
-      this.categories.filter(
-        category => category.id !== id
-      );
+    this.categoryService
+      .deleteCategory(id)
+      .subscribe({
 
-    localStorage.setItem(
-      'categories',
-      JSON.stringify(this.categories)
-    );
+        next: () => {
+
+          this.loadCategories();
+
+          this.cdr.detectChanges();
+
+        },
+
+        error: (error) => {
+
+          console.error(error);
+
+        }
+
+      });
 
   }
 
-  cancelEdit() {
+  cancelEdit(): void {
 
     this.editMode = false;
 
     this.editId = null;
 
     this.categoryName = '';
+
+    this.cdr.detectChanges();
 
   }
 

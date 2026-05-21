@@ -102,7 +102,7 @@ export class Home implements OnInit {
   loadCategories(): void {
 
     this.categoryService
-      .getCategories()
+      .getMenuCategories()
       .subscribe({
 
         next: (categories: any) => {
