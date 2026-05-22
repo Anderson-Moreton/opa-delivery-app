@@ -36,6 +36,8 @@
           Total: R$ {{ cartService.getTotal() }}
         </div>
         <div class="cart-actions" *ngIf="cartService.getItems().length > 0">
+          <button class="continue-btn" routerLink="/">Voltar ao Menu</button>
+
           <button class="clear-btn" (click)="cartService.clearCart()">Esvaziar Carrinho</button>
 
           <button class="checkout-btn" (click)="checkout()">Finalizar Pedido</button>
