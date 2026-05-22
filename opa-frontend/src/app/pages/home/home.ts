@@ -31,9 +31,9 @@ export class Home implements OnInit {
   currentIndex = 0;
 
   images = [
-    'assets/img/cardapioBurguersMenu.jpg',
-    'assets/img/cardapioDogsMenu.jpg',
-    'assets/img/cardapioBebidaMenu.jpg'
+    'assets/img/carousel01.png',
+    'assets/img/carousel02.png',
+    'assets/img/carousel03.png'
   ];
 
   next() {
