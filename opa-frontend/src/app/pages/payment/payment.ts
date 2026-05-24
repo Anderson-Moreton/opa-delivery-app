@@ -1,11 +1,10 @@
-import {
-  Component,
-  OnInit
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 
 import { FormsModule } from '@angular/forms';
+
+import { Router } from '@angular/router';
 
 import { HeaderComponent } from '../../components/header/header';
 
@@ -58,7 +57,8 @@ implements OnInit {
   changeFor: number | null = null;
 
   constructor(
-    private cartService: CartService
+    private cartService: CartService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -84,6 +84,62 @@ implements OnInit {
 
     this.total =
       this.cartService.getTotal();
+
+  }
+
+  confirmOrder(): void {
+
+    if (!this.address.trim()) {
+
+      alert(
+        'Digite o endereço'
+      );
+
+      return;
+
+    }
+
+    if (
+      this.paymentMethod === 'credit' ||
+      this.paymentMethod === 'debit'
+    ) {
+
+      if (
+        !this.cardNumber ||
+        !this.cardName ||
+        !this.expiration ||
+        !this.cvv
+      ) {
+
+        alert(
+          'Preencha os dados do cartão'
+        );
+
+        return;
+
+      }
+
+    }
+
+    if (
+      this.paymentMethod === 'cash' &&
+      this.needChange &&
+      !this.changeFor
+    ) {
+
+      alert(
+        'Digite o valor do troco'
+      );
+
+      return;
+
+    }
+
+    this.cartService.clearCart();
+
+    this.router.navigate([
+      '/order-success'
+    ]);
 
   }
 
