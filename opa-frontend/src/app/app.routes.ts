@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { Home } from './pages/home/home';
 import { CartComponent } from './pages/cart/cart';
 import { PaymentComponent } from './pages/payment/payment';
+import { OrderSuccessComponent } from './pages/order-success/order-success';
 import { LoginComponent } from './pages/login/login'; 
 import { RegisterComponent } from './pages/register/register';
 import { AboutComponent } from './pages/about/about';
@@ -24,6 +25,10 @@ export const routes: Routes = [
   {
     path: 'payment',
     component: PaymentComponent
+  },
+  {
+    path: 'order-success',
+    component: OrderSuccessComponent
   },
   {
     path: 'login',
