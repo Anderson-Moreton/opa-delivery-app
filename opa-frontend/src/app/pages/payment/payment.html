@@ -1,0 +1,116 @@
+<div class="page">
+  <app-header></app-header>
+
+  <main class="payment-container">
+    <div class="payment-card">
+      <h1>Finalizar Pedido</h1>
+
+      <h3 class="welcome">Olá, {{ userName }}</h3>
+
+      <div class="form-group">
+        <label> Endereço de entrega </label>
+
+        <input type="text" [(ngModel)]="address" placeholder="Digite seu endereço" />
+      </div>
+
+      <div class="form-group">
+        <label> Método de pagamento </label>
+
+        <select [(ngModel)]="paymentMethod">
+          <option value="pix">PIX</option>
+
+          <option value="credit">Cartão de Crédito</option>
+
+          <option value="debit">Cartão de Débito</option>
+
+          <option value="cash">Dinheiro</option>
+        </select>
+      </div>
+
+      <!-- PIX -->
+
+      <div *ngIf="paymentMethod === 'pix'" class="payment-details">
+        <h4>Pagamento via PIX</h4>
+
+        <p>Escaneie QR Code para pagamento</p>
+
+        <button class="secondary-btn">Copiar código PIX</button>
+      </div>
+
+      <!-- CREDIT -->
+
+      <div *ngIf="paymentMethod === 'credit'" class="payment-details">
+        <input type="text" placeholder="Número do cartão" [(ngModel)]="cardNumber" />
+
+        <input type="text" placeholder="Nome no cartão" [(ngModel)]="cardName" />
+
+        <div class="row">
+          <input type="text" placeholder="MM/AA" [(ngModel)]="expiration" />
+
+          <input type="text" placeholder="CVV" [(ngModel)]="cvv" />
+        </div>
+
+        <select [(ngModel)]="installments">
+          <option [value]="1">1x sem juros</option>
+
+          <option [value]="2">2x sem juros</option>
+
+          <option [value]="3">3x sem juros</option>
+        </select>
+      </div>
+
+      <!-- DEBIT -->
+
+      <div *ngIf="paymentMethod === 'debit'" class="payment-details">
+        <input type="text" placeholder="Número do cartão" [(ngModel)]="cardNumber" />
+
+        <input type="text" placeholder="Nome no cartão" [(ngModel)]="cardName" />
+
+        <div class="row">
+          <input type="text" placeholder="MM/AA" [(ngModel)]="expiration" />
+
+          <input type="text" placeholder="CVV" [(ngModel)]="cvv" />
+        </div>
+      </div>
+
+      <!-- CASH -->
+
+      <div *ngIf="paymentMethod === 'cash'" class="payment-details">
+        <label>
+          <input type="checkbox" [(ngModel)]="needChange" />
+
+          Precisa de troco
+        </label>
+
+        <input
+          *ngIf="needChange"
+          type="number"
+          placeholder="Troco para quanto?"
+          [(ngModel)]="changeFor"
+        />
+      </div>
+
+      <button class="pay-btn">Confirmar Pedido</button>
+    </div>
+
+    <div class="summary-card">
+      <h2>Resumo do Pedido</h2>
+
+      <div class="summary-item" *ngFor="let item of cartItems">
+        <span>
+          {{ item.name }}
+
+          x{{ item.quantity }}
+        </span>
+
+        <span> R$ {{ item.price * item.quantity }} </span>
+      </div>
+
+      <hr />
+
+      <h3>Total: R$ {{ total }}</h3>
+    </div>
+  </main>
+
+  <app-footer></app-footer>
+</div>
