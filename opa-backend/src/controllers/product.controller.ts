@@ -10,9 +10,20 @@ export const getProducts = async (
 
   try {
 
-    const [products] = await pool.query(
-      'SELECT * FROM products ORDER BY id DESC'
-    );
+    const [products] = await pool.query(`
+      SELECT
+        p.id,
+        p.name,
+        p.description,
+        p.price,
+        p.image,
+        p.category_id,
+        c.name AS category
+      FROM products p
+      LEFT JOIN categories c
+        ON p.category_id = c.id
+      ORDER BY p.id DESC
+    `);
 
     res.json(products);
 
@@ -39,7 +50,11 @@ export const getProductById = async (
     const { id } = req.params;
 
     const [product] = await pool.query(
-      'SELECT * FROM products WHERE id = ?',
+      `
+        SELECT *
+        FROM products
+        WHERE id = ?
+      `,
       [id]
     );
 
@@ -70,20 +85,22 @@ export const createProduct = async (
       description,
       price,
       category,
+      category_id,
       image
     } = req.body;
 
     await pool.query(
       `
         INSERT INTO products
-        (name, description, price, category, image)
-        VALUES (?, ?, ?, ?, ?)
+        (name, description, price, category, category_id, image)
+        VALUES (?, ?, ?, ?, ?, ?)
       `,
       [
         name,
         description,
         price,
         category,
+        category_id,
         image
       ]
     );
@@ -119,6 +136,7 @@ export const updateProduct = async (
       description,
       price,
       category,
+      category_id,
       image
     } = req.body;
 
@@ -130,6 +148,7 @@ export const updateProduct = async (
           description = ?,
           price = ?,
           category = ?,
+          category_id = ?,
           image = ?
         WHERE id = ?
       `,
@@ -138,6 +157,7 @@ export const updateProduct = async (
         description,
         price,
         category,
+        category_id,
         image,
         id
       ]

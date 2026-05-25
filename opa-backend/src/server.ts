@@ -4,6 +4,7 @@ import cors from 'cors';
 import { pool } from './database/connection';
 
 import productRoutes from './routes/product.routes';
+import categoryRoutes from './routes/category.routes';
 
 const app = express();
 
@@ -22,6 +23,9 @@ app.get('/products-test', (req, res) => {
 /* PRODUCTS ROUTES */
 
 app.use('/products', productRoutes);
+
+/* CATEGORIES ROUTES */
+app.use('/categories', categoryRoutes);
 
 /* ROOT ROUTE */
 
