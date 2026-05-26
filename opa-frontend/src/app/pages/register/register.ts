@@ -1,27 +1,29 @@
 import { Component } from '@angular/core';
+
 import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
+
 import { HttpClient } from '@angular/common/http';
 
+import { Router } from '@angular/router';
+
 import { HeaderComponent } from '../../components/header/header';
+
 import { FooterComponent } from '../../components/footer/footer';
 
 import { ToastService } from '../../services/toast.service';
 
+import { AuthService } from '../../services/auth.service';
+
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    HeaderComponent,
-    FooterComponent
-  ],
+  imports: [CommonModule, FormsModule, HeaderComponent, FooterComponent],
   templateUrl: './register.html',
-  styleUrls: ['./register.css']
+  styleUrls: ['./register.css'],
 })
 export class RegisterComponent {
-
   name = '';
   email = '';
 
@@ -40,58 +42,60 @@ export class RegisterComponent {
 
   constructor(
     private http: HttpClient,
-    private toast: ToastService
+    private toast: ToastService,
+    private authService: AuthService,
+    private router: Router,
   ) {}
 
-  register() {
-
+  register(): void {
     if (this.password !== this.confirmPassword) {
-
-      this.toast.show(
-        'As senhas não coincidem',
-        'error'
-      );
+      this.toast.show('Passwords do not match', 'error');
 
       return;
     }
 
-    this.toast.show(
-      'Cadastro realizado com sucesso',
-      'success'
-    );
-
-    console.log({
+    const user = {
       name: this.name,
-      email: this.email,
-      phone: `(${this.ddd}) ${this.phone}`,
-      cep: this.cep,
-      street: this.street,
-      number: this.number,
-      neighborhood: this.neighborhood,
-      city: this.city,
-      complement: this.complement
-    });
 
+      email: this.email,
+
+      password: this.password,
+
+      phone: `(${this.ddd}) ${this.phone}`,
+
+      address: `${this.street},
+      ${this.number},
+      ${this.neighborhood},
+      ${this.city},
+      ${this.complement}`,
+    };
+
+    this.authService.register(user).subscribe({
+      next: () => {
+        this.toast.show('Registration successful', 'success');
+
+        this.router.navigate(['/login']);
+      },
+
+      error: (error) => {
+        this.toast.show(error.error.message || 'Registration error', 'error');
+      },
+    });
   }
 
   searchCep() {
-
     const cleanCep = this.cep.replace(/\D/g, '');
 
     if (cleanCep.length < 8) {
       return;
     }
 
-    this.http
-      .get<any>(`https://viacep.com.br/ws/${cleanCep}/json/`)
-      .subscribe((data) => {
+    this.http.get<any>(`https://viacep.com.br/ws/${cleanCep}/json/`).subscribe((data) => {
+      this.street = data.logradouro;
 
-        this.street = data.logradouro;
-        this.neighborhood = data.bairro;
-        this.city = data.localidade;
+      this.neighborhood = data.bairro;
 
-      });
-
+      this.city = data.localidade;
+    });
   }
-
 }
