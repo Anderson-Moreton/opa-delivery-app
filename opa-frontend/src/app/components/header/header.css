@@ -1,47 +1,47 @@
 :host {
-    font-family: "Righteous", sans-serif;
-    box-shadow: 0px 2px 20px 4px rgba(0, 0, 0, .5);
-    position: fixed;
-    width: 100%;
-    background-color: #F8C537;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    display: block;
+  font-family: 'Righteous', sans-serif;
+  box-shadow: 0px 2px 20px 4px rgba(0, 0, 0, 0.5);
+  position: fixed;
+  width: 100%;
+  background-color: #f8c537;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  display: block;
 }
 
 .menuCabecalho {
-    width: 100%;
-    height: 5rem;
-    display: flex;
-    padding-inline: 2rem;
-    flex-direction: column;
-    justify-content: center;
+  width: 100%;
+  height: 5rem;
+  display: flex;
+  padding-inline: 2rem;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .logo {
-    margin-top: 10px;
-    position: relative;
+  margin-top: 10px;
+  position: relative;
 }
 
 .itemsMenu a {
-    color: #000000;
-    font-size: 20px;
+  color: #000000;
+  font-size: 20px;
 }
 
 .menuCabecalho .itemsMenu {
-    display: flex;
-    justify-content: space-around;
+  display: flex;
+  justify-content: space-around;
 }
 
 .menuCabecalho .barraPesquisar input {
-    width: 100%;
+  width: 100%;
 }
 
 /*Cart Total Items*/
 .cart-icon {
   position: relative;
-  display: inline-flex; 
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
@@ -58,12 +58,11 @@
   font-weight: bold;
   padding: 2px 6px;
   border-radius: 50%;
-  pointer-events: none; 
+  pointer-events: none;
 }
 
 /* Responsive Styles */
 @media (max-width: 768px) {
-
   .menuCabecalho {
     height: auto;
     padding: 1rem;
@@ -100,22 +99,75 @@
     font-size: 16px;
     white-space: nowrap;
   }
+}
 
+/* USER MENU */
+.user-menu {
+  position: relative;
+}
+
+.user-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: inherit;
+  color: #312f2f;
+  transition: 0.3s;
+}
+
+.user-button:hover {
+  color: #000000;
+  opacity: 0.8;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 42px;
+  right: 0;
+  width: 190px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  z-index: 999;
+}
+
+.dropdown-menu a,
+.logout-btn {
+  display: block;
+  width: 100%;
+  padding: 14px 18px;
+  text-decoration: none;
+  color: #312f2f;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: inherit;
+  background: white;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: 0.3s;
+}
+
+.dropdown-menu a:hover,
+.logout-btn:hover {
+  background: #f4c430;
+
+  color: #312f2f;
 }
 
 /* tablet */
 @media (max-width: 900px) {
-
   .products-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
   }
-
 }
 
 /* mobile */
 @media (max-width: 600px) {
-
   .products-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
@@ -131,12 +183,10 @@
     height: 180px;
     object-fit: cover;
   }
-
 }
 
 /* MOBILE PEQUENO */
 @media (max-width: 620px) {
-
   .menuCabecalho {
     height: auto;
     padding: 0.8rem;
@@ -161,12 +211,10 @@
   .logo img {
     width: 70px;
   }
-
 }
 
 /* MOBILE MUITO PEQUENO */
 @media (max-width: 400px) {
-
   .menuCabecalho {
     height: auto;
     padding: 0.5rem;
@@ -189,5 +237,4 @@
   .logo img {
     width: 50px;
   }
-
 }

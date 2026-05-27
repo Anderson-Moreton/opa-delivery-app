@@ -3,22 +3,19 @@
     <div class="logo">
       <img src="assets/img/logo_fundo_branco.svg" alt="Logo Opa com fundo branco" />
     </div>
+
     <div class="menuCabecalho">
       <div class="itemsMenu">
         <div class="itemMenu">
           <a routerLink="/">Menu</a>
         </div>
-        <!-- <div class="itemMenu">
-                    <a routerLink="/menu">Cardápio</a>
-                </div> -->
+
         <div class="itemMenu">
           <a routerLink="/contact">Contato</a>
         </div>
+
         <div class="itemMenu">
           <a routerLink="/about">Sobre nós</a>
-        </div>
-        <div class="itemMenu">
-          <a routerLink="/login">Entrar</a>
         </div>
         <div class="itemMenu">
           <a routerLink="/cart" class="cart-icon">
@@ -28,6 +25,23 @@
               {{ cartService.getTotalItems() }}
             </span>
           </a>
+        </div>
+        <!-- NOT LOGGED -->
+        <div class="itemMenu" *ngIf="!user">
+          <a routerLink="/login"> Entrar </a>
+        </div>
+
+        <!-- LOGGED -->
+        <div class="itemMenu user-menu" *ngIf="user">
+          <button class="user-button" (click)="toggleDropdown()">Olá, {{ user.name }} ▼</button>
+
+          <div class="dropdown-menu" *ngIf="dropdownOpen">
+            <a routerLink="/payment"> Minha Conta </a>
+
+            <a routerLink="/order-success"> Meus Pedidos </a>
+
+            <button class="logout-btn" (click)="logout()">Logout</button>
+          </div>
         </div>
       </div>
     </div>
