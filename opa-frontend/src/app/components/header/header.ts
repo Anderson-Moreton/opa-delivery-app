@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
+
 import { CommonModule } from '@angular/common';
-import { RouterLink } from "@angular/router";
-import { CartService } from "../../services/cart.service";
+
+import { RouterLink } from '@angular/router';
+
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-header',
@@ -11,5 +14,25 @@ import { CartService } from "../../services/cart.service";
   imports: [RouterLink, CommonModule],
 })
 export class HeaderComponent {
-  constructor(public cartService: CartService) {}
+  user: any = null;
+
+  dropdownOpen = false;
+
+  constructor(public cartService: CartService) {
+    const storedUser = localStorage.getItem('user');
+
+    if (storedUser) {
+      this.user = JSON.parse(storedUser);
+    }
+  }
+
+  toggleDropdown(): void {
+    this.dropdownOpen = !this.dropdownOpen;
+  }
+
+  logout(): void {
+    localStorage.removeItem('user');
+
+    window.location.reload();
+  }
 }
