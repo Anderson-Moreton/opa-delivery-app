@@ -86,6 +86,8 @@ WHERE email=?
       email: user.email,
 
       address: user.address,
+
+      role: user.role,
     });
   } catch (error) {
     console.error(error);
