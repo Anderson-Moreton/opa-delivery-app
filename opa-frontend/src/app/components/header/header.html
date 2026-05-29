@@ -36,11 +36,13 @@
           <button class="user-button" (click)="toggleDropdown()">Olá, {{ user.name }} ▼</button>
 
           <div class="dropdown-menu" *ngIf="dropdownOpen">
-            <a routerLink="/payment"> Minha Conta </a>
+            <a routerLink="/account"> Minha Conta </a>
 
-            <a routerLink="/order-success"> Meus Pedidos </a>
+            <a routerLink="/orders"> Meus Pedidos </a>
 
-            <button class="logout-btn" (click)="logout()">Logout</button>
+            <a *ngIf="isAdmin()" routerLink="/admin/dashboard"> Dashboard </a>
+
+            <button (click)="logout()">Logout</button>
           </div>
         </div>
       </div>

@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-
 import { CommonModule } from '@angular/common';
-
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 import { CartService } from '../../services/cart.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -15,24 +14,29 @@ import { CartService } from '../../services/cart.service';
 })
 export class HeaderComponent {
   user: any = null;
-
   dropdownOpen = false;
 
-  constructor(public cartService: CartService) {
-    const storedUser = localStorage.getItem('user');
-
-    if (storedUser) {
-      this.user = JSON.parse(storedUser);
-    }
+  constructor(
+    public cartService: CartService,
+    private authService: AuthService,
+    private router: Router,
+  ) {
+    this.user = this.authService.getCurrentUser();
   }
 
-  toggleDropdown(): void {
+  toggleDropdown() {
     this.dropdownOpen = !this.dropdownOpen;
   }
 
-  logout(): void {
-    localStorage.removeItem('user');
+  isAdmin(): boolean {
+    return this.user?.role === 'admin';
+  }
 
-    window.location.reload();
+  logout() {
+    this.authService.logout();
+
+    this.user = null;
+
+    this.router.navigate(['/']);
   }
 }
