@@ -1,0 +1,45 @@
+<app-header></app-header>
+
+<div class="account-container" *ngIf="user">
+  <div class="account-card">
+    <h1>Minha Conta</h1>
+
+    <div class="field">
+      <label>Nome</label>
+      <p>{{ user.name }}</p>
+    </div>
+
+    <div class="field">
+      <label>Email</label>
+      <p>{{ user.email }}</p>
+    </div>
+
+    <div class="field">
+      <label>Telefone</label>
+      <p>{{ user.phone }}</p>
+    </div>
+
+    <div class="field">
+      <label>CEP</label>
+      <p>{{ user.cep }}</p>
+    </div>
+
+    <div class="field">
+      <label>Endereço</label>
+      <p>{{ user.address }}</p>
+    </div>
+
+    <div class="field">
+      <label>Perfil</label>
+      <p>
+        {{ user.role === 'admin' ? 'Administrador' : 'Cliente' }}
+      </p>
+    </div>
+
+    <div class="button-container">
+      <button class="edit-btn">Editar Dados</button>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

@@ -7,6 +7,7 @@ import { LoginComponent } from './pages/login/login';
 import { RegisterComponent } from './pages/register/register';
 import { AboutComponent } from './pages/about/about';
 import { ContactComponent } from './pages/contact/contact';
+import { AccountComponent } from './pages/account/account';
 
 import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard';
 import { AdminCreateProductComponent } from './pages/admin-create-product/admin-create-product';
@@ -48,6 +49,11 @@ export const routes: Routes = [
   {
     path: 'contact',
     component: ContactComponent,
+  },
+  {
+    path: 'account',
+    component: AccountComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'admin/dashboard',
