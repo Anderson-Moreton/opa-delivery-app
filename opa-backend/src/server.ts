@@ -10,6 +10,8 @@ import categoryRoutes from "./routes/category.routes";
 
 import authRoutes  from "./routes/auth.routes";
 
+import orderRoutes from "./routes/order.routes";
+
 const app = express();
 
 app.use(cors());
@@ -18,6 +20,9 @@ app.use(express.json());
 
 /* AUTH ROUTES */
 app.use("/auth", authRoutes);
+
+/* ORDER ROUTES */
+app.use("/orders", orderRoutes);
 
 /* TEST ROUTE */
 
