@@ -51,3 +51,32 @@ VALUES
     });
   }
 };
+
+export const getUserOrders = async (req: Request, res: Response) => {
+  try {
+    const { userId } = req.params;
+
+    const [orders]: any = await pool.query(
+      `
+SELECT
+id,
+total,
+payment_method,
+status,
+created_at
+FROM orders
+WHERE user_id = ?
+ORDER BY created_at DESC
+`,
+      [userId],
+    );
+
+    res.json(orders);
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      message: "Error fetching orders",
+    });
+  }
+};

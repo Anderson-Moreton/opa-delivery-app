@@ -12,22 +12,16 @@ import { FooterComponent } from '../../components/footer/footer';
 
 import { CartService } from '../../services/cart.service';
 
+import { OrderService } from '../../services/order.service';
+
 @Component({
   selector: 'app-payment',
   standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    HeaderComponent,
-    FooterComponent
-  ],
+  imports: [CommonModule, FormsModule, HeaderComponent, FooterComponent],
   templateUrl: './payment.html',
-  styleUrls: ['./payment.css']
+  styleUrls: ['./payment.css'],
 })
-
-export class PaymentComponent
-implements OnInit {
-
+export class PaymentComponent implements OnInit {
   paymentMethod = 'pix';
 
   userName = '';
@@ -58,89 +52,71 @@ implements OnInit {
 
   constructor(
     private cartService: CartService,
-    private router: Router
+    private router: Router,
+    private orderService: OrderService,
   ) {}
 
   ngOnInit(): void {
-
-    const user =
-      localStorage.getItem('user');
+    const user = localStorage.getItem('user');
 
     if (user) {
+      const userData = JSON.parse(user);
 
-      const userData =
-        JSON.parse(user);
+      this.userName = userData.name || '';
 
-      this.userName =
-        userData.name || '';
-
-      this.address =
-        userData.address || '';
-
+      this.address = userData.address || '';
     }
 
-    this.cartItems =
-      this.cartService.getItems();
+    this.cartItems = this.cartService.getItems();
 
-    this.total =
-      this.cartService.getTotal();
-
+    this.total = this.cartService.getTotal();
   }
 
   confirmOrder(): void {
-
     if (!this.address.trim()) {
-
-      alert(
-        'Digite o endereço'
-      );
+      alert('Digite o endereço');
 
       return;
-
     }
 
-    if (
-      this.paymentMethod === 'credit' ||
-      this.paymentMethod === 'debit'
-    ) {
-
-      if (
-        !this.cardNumber ||
-        !this.cardName ||
-        !this.expiration ||
-        !this.cvv
-      ) {
-
-        alert(
-          'Preencha os dados do cartão'
-        );
+    if (this.paymentMethod === 'credit' || this.paymentMethod === 'debit') {
+      if (!this.cardNumber || !this.cardName || !this.expiration || !this.cvv) {
+        alert('Preencha os dados do cartão');
 
         return;
-
       }
-
     }
 
-    if (
-      this.paymentMethod === 'cash' &&
-      this.needChange &&
-      !this.changeFor
-    ) {
-
-      alert(
-        'Digite o valor do troco'
-      );
+    if (this.paymentMethod === 'cash' && this.needChange && !this.changeFor) {
+      alert('Digite o valor do troco');
 
       return;
-
     }
 
-    this.cartService.clearCart();
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
 
-    this.router.navigate([
-      '/order-success'
-    ]);
+    const order = {
+      userId: user.id,
 
+      total: this.total,
+
+      paymentMethod: this.paymentMethod,
+
+      items: this.cartItems,
+    };
+
+    this.orderService.createOrder(order).subscribe({
+      next: () => {
+        this.cartService.clearCart();
+
+        this.router.navigate(['/order-success']);
+      },
+
+      error: (error) => {
+        console.error(error);
+
+        alert('Erro ao criar pedido');
+      },
+    });
   }
-
 }

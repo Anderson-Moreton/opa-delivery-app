@@ -13,42 +13,25 @@ import { CartService } from '../../services/cart.service';
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [
-    CommonModule,
-    HeaderComponent,
-    FooterComponent,
-    RouterLink
-  ],
+  imports: [CommonModule, HeaderComponent, FooterComponent, RouterLink],
   templateUrl: './cart.html',
-  styleUrls: ['./cart.css']
+  styleUrls: ['./cart.css'],
 })
-
 export class CartComponent {
-
   constructor(
     public cartService: CartService,
-    private router: Router
+    private router: Router,
   ) {}
 
   checkout(): void {
-
-    const user =
-      localStorage.getItem('user');
+    const user = localStorage.getItem('user');
 
     if (!user) {
-
-      this.router.navigate([
-        '/login'
-      ]);
+      this.router.navigate(['/login']);
 
       return;
-
     }
 
-    this.router.navigate([
-      '/payment'
-    ]);
-
+    this.router.navigate(['/payment']);
   }
-
 }
