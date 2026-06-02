@@ -17,7 +17,7 @@
         {{ order.status === 'pending' ? 'Preparando' : order.status }}
       </span>
 
-      <button class="details-btn">Ver Pedido</button>
+      <a class="details-btn" [routerLink]="['/orders', order.id]"> Ver Pedido </a>
     </div>
   </div>
 </div>

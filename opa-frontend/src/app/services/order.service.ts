@@ -19,4 +19,8 @@ export class OrderService {
   getUserOrders(userId: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/user/${userId}`);
   }
+
+  getOrderById(orderId: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${orderId}`);
+  }
 }

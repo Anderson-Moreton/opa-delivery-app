@@ -1,6 +1,8 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
+
+import { ActivatedRoute } from '@angular/router';
 
 import { RouterLink } from '@angular/router';
 
@@ -11,26 +13,27 @@ import { FooterComponent } from '../../components/footer/footer';
 import { OrderService } from '../../services/order.service';
 
 @Component({
-  selector: 'app-orders',
+  selector: 'app-order-details',  
   standalone: true,
-  imports: [CommonModule, HeaderComponent, FooterComponent, RouterLink],
-  templateUrl: './orders.html',
-  styleUrls: ['./orders.css'],
+  imports: [CommonModule, HeaderComponent , FooterComponent, RouterLink],
+  templateUrl: './order-details.html',
+  styleUrls: ['./order-details.css'],
 })
-export class OrdersComponent implements OnInit {
-  orders: any[] = [];
+export class OrderDetailsComponent implements OnInit {
+  order: any = null;
 
   constructor(
+    private route: ActivatedRoute,
     private orderService: OrderService,
     private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const orderId = Number(this.route.snapshot.paramMap.get('id'));
 
-    this.orderService.getUserOrders(user.id).subscribe({
+    this.orderService.getOrderById(orderId).subscribe({
       next: (response) => {
-        this.orders = response;
+        this.order = response;
         this.cdr.detectChanges();
       },
       error: (error) => {
