@@ -1,0 +1,44 @@
+<app-header></app-header>
+
+<div class="details-container" *ngIf="order">
+  <div class="details-card">
+    <h1>Pedido #{{ order.id }}</h1>
+
+    <div class="info-row">
+      <strong>Data:</strong>
+      <span>
+        {{ order.created_at | date: 'dd/MM/yyyy HH:mm' }}
+      </span>
+    </div>
+
+    <div class="info-row">
+      <strong>Status:</strong>
+      <span>
+        {{ order.status }}
+      </span>
+    </div>
+
+    <div class="info-row">
+      <strong>Pagamento:</strong>
+      <span>
+        {{ order.payment_method }}
+      </span>
+    </div>
+
+    <h2>Itens</h2>
+
+    <div class="item-row" *ngFor="let item of order.items">
+      <span> {{ item.quantity }}x {{ item.name }} </span>
+
+      <span> R$ {{ item.price }} </span>
+    </div>
+
+    <div class="total">Total: R$ {{ order.total }}</div>
+
+    <div class="actions">
+      <a class="back-btn" routerLink="/orders"> Voltar para Pedidos </a>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

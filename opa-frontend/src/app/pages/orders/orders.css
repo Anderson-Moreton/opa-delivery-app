@@ -1,9 +1,9 @@
 .orders-container {
   max-width: 900px;
-  margin: 120px auto 40px;
-  padding: 20px;
+  margin: 20px auto;
+  padding: 0 20px;
+  min-height: 80vh;
 }
-
 .orders-container h1 {
   text-align: center;
   margin-bottom: 30px;
