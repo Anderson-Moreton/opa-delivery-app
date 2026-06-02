@@ -13,6 +13,7 @@ import { AccountComponent } from './pages/account/account';
 import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard';
 import { AdminCreateProductComponent } from './pages/admin-create-product/admin-create-product';
 import { AdminCategoriesComponent } from './pages/admin-categories/admin-categories';
+import { AdminOrdersComponent } from './pages/admin-orders/admin-orders';
 
 import { authGuard } from './guards/auth.guard';
 import { adminGuard } from './guards/admin.guard';
@@ -87,4 +88,9 @@ export const routes: Routes = [
     component: AdminCategoriesComponent,
     canActivate: [adminGuard],
   },
+  {
+    path: 'admin/orders',
+    component: AdminOrdersComponent,
+    canActivate: [adminGuard],
+  }
 ];
