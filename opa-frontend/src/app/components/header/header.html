@@ -42,6 +42,8 @@
 
             <a *ngIf="isAdmin()" routerLink="/admin/dashboard"> Dashboard </a>
 
+            <a *ngIf="isAdmin()" routerLink="/admin/orders"> Pedidos Recebidos </a>
+
             <button (click)="logout()">Logout</button>
           </div>
         </div>

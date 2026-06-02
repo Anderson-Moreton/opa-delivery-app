@@ -134,3 +134,31 @@ WHERE oi.order_id = ?
     });
   }
 };
+
+export const getAllOrders = async (req: Request, res: Response) => {
+  try {
+    const [orders]: any = await pool.query(
+      `
+SELECT
+  o.id,
+  u.name AS customer_name,
+  o.total,
+  o.payment_method,
+  o.status,
+  o.created_at
+FROM orders o
+INNER JOIN users u
+ON u.id = o.user_id
+ORDER BY o.created_at DESC
+`,
+    );
+
+    res.json(orders);
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      message: "Error fetching orders",
+    });
+  }
+};

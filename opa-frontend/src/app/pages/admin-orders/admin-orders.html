@@ -1,0 +1,27 @@
+<app-header></app-header>
+
+<div class="admin-orders-container">
+  <h1>Pedidos Recebidos</h1>
+
+  <div class="order-card" *ngFor="let order of orders">
+    <div class="order-info">
+      <span> #{{ order.id }} </span>
+
+      <span>
+        {{ order.customer_name }}
+      </span>
+
+      <span> R$ {{ order.total }} </span>
+
+      <span>
+        {{ order.payment_method }}
+      </span>
+
+      <span>
+        {{ order.status === 'pending' ? 'Preparando' : order.status }}
+      </span>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>
