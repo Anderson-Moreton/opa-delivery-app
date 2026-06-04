@@ -17,9 +17,12 @@
         {{ order.payment_method }}
       </span>
 
-      <span>
-        {{ order.status === 'pending' ? 'Preparando' : order.status }}
-      </span>
+      <select [value]="order.status" (change)="updateStatus(order.id, $event)">
+        <option value="pending">Pendente</option>
+        <option value="preparing">Preparando</option>
+        <option value="ready">Pronto</option>
+        <option value="delivered">Entregue</option>
+      </select>
     </div>
   </div>
 </div>

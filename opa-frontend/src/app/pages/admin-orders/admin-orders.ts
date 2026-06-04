@@ -18,13 +18,33 @@ import { OrderService } from '../../services/order.service';
 export class AdminOrdersComponent implements OnInit {
   orders: any[] = [];
 
-  constructor(private orderService: OrderService, private cdr: ChangeDetectorRef) {}
+  constructor(
+    private orderService: OrderService,
+    private cdr: ChangeDetectorRef,
+  ) {}
 
   ngOnInit(): void {
     this.orderService.getAllOrders().subscribe({
       next: (response) => {
         this.orders = response;
         this.cdr.detectChanges();
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
+  }
+
+  updateStatus(orderId: number, event: Event): void {
+    const status = (event.target as HTMLSelectElement).value;
+
+    this.orderService.updateOrderStatus(orderId, status).subscribe({
+      next: () => {
+        const order = this.orders.find((o) => o.id === orderId);
+
+        if (order) {
+          order.status = status;
+        }
       },
       error: (error) => {
         console.error(error);
