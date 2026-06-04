@@ -162,3 +162,30 @@ ORDER BY o.created_at DESC
     });
   }
 };
+
+export const updateOrderStatus = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    const { status } = req.body;
+
+    await pool.query(
+      `
+UPDATE orders
+SET status = ?
+WHERE id = ?
+`,
+      [status, id],
+    );
+
+    res.json({
+      message: "Status updated successfully",
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      message: "Error updating status",
+    });
+  }
+};
