@@ -1,5 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 
+import { RouterLink } from '@angular/router';
+
 import { CommonModule } from '@angular/common';
 
 import { HeaderComponent } from '../../components/header/header';
@@ -11,7 +13,7 @@ import { OrderService } from '../../services/order.service';
 @Component({
   selector: 'app-admin-orders',
   standalone: true,
-  imports: [CommonModule, HeaderComponent, FooterComponent],
+  imports: [CommonModule, HeaderComponent, FooterComponent, RouterLink],
   templateUrl: './admin-orders.html',
   styleUrls: ['./admin-orders.css'],
 })

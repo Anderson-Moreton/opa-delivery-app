@@ -1,0 +1,83 @@
+:host {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.details-container {
+  flex: 1;
+  max-width: 850px;
+  width: 100%;
+  margin: 90px auto 20px;
+  padding: 0 20px;
+}
+
+.details-card {
+  background: #fff;
+  padding: 20px 25px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.details-card h1 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f5f5f5;
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.info-row strong {
+  color: #333;
+}
+
+.info-row span {
+  font-weight: 600;
+}
+
+.details-card h2 {
+  text-align: center;
+  margin: 20px 0 10px;
+}
+
+.item-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.total {
+  margin-top: 15px;
+  text-align: right;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.back-btn {
+  display: block;
+  width: fit-content;
+  margin: 20px auto 0;
+  padding: 12px 24px;
+  background: #f1c232;
+  color: #000;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.back-btn:hover {
+  background: #ddb221;
+}
+
+.back-btn:visited {
+  color: #000;
+}
