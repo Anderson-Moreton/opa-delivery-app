@@ -13,8 +13,8 @@
 
       <span> R$ {{ order.total }} </span>
 
-      <span>
-        {{ order.status === 'pending' ? 'Preparando' : order.status }}
+      <span class="status">
+        {{ getStatusLabel(order.status) }}
       </span>
 
       <a class="details-btn" [routerLink]="['/orders', order.id]"> Ver Pedido </a>

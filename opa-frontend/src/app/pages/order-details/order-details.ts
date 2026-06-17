@@ -13,9 +13,9 @@ import { FooterComponent } from '../../components/footer/footer';
 import { OrderService } from '../../services/order.service';
 
 @Component({
-  selector: 'app-order-details',  
+  selector: 'app-order-details',
   standalone: true,
-  imports: [CommonModule, HeaderComponent , FooterComponent, RouterLink],
+  imports: [CommonModule, HeaderComponent, FooterComponent, RouterLink],
   templateUrl: './order-details.html',
   styleUrls: ['./order-details.css'],
 })
@@ -40,5 +40,24 @@ export class OrderDetailsComponent implements OnInit {
         console.error(error);
       },
     });
+  }
+
+  getStatusLabel(status: string): string {
+    switch (status) {
+      case 'pending':
+        return '🟡 Pendente';
+
+      case 'preparing':
+        return '🟠 Preparando';
+
+      case 'ready':
+        return '🟢 Pronto';
+
+      case 'delivered':
+        return '🔵 Entregue';
+
+      default:
+        return status;
+    }
   }
 }

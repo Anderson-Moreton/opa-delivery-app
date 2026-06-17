@@ -44,3 +44,13 @@
 .details-btn:hover {
   background: #e0b020;
 }
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: #fff8d6;
+}

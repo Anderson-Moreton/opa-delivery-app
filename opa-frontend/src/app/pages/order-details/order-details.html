@@ -13,8 +13,8 @@
 
     <div class="info-row">
       <strong>Status:</strong>
-      <span>
-        {{ order.status }}
+      <span class="status">
+        {{ getStatusLabel(order.status) }}
       </span>
     </div>
 

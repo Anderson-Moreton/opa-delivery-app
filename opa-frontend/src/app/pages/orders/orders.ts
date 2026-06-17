@@ -38,4 +38,23 @@ export class OrdersComponent implements OnInit {
       },
     });
   }
+
+  getStatusLabel(status: string): string {
+    switch (status) {
+      case 'pending':
+        return '🟡 Pendente';
+
+      case 'preparing':
+        return '🟠 Preparando';
+
+      case 'ready':
+        return '🟢 Pronto';
+
+      case 'delivered':
+        return '🔵 Entregue';
+
+      default:
+        return status;
+    }
+  }
 }
