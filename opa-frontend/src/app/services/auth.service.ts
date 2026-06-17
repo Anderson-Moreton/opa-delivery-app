@@ -29,4 +29,8 @@ export class AuthService {
 
     return user ? JSON.parse(user) : null;
   }
+  
+  updateUser(id: number, user: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/users/${id}`, user);
+  }
 }

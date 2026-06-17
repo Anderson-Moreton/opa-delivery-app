@@ -4,7 +4,7 @@ import { pool } from "../database/connection";
 
 export const register = async (req: Request, res: Response) => {
   try {
-    const { name, email, password, phone, address } = req.body;
+    const { name, email, password, phone, cep, address } = req.body;
 
     console.log(req.body);
 
@@ -31,12 +31,13 @@ name,
 email,
 password,
 phone,
+cep,
 address
 )
 VALUES
-(?,?,?,?,?)
+(?,?,?,?,?,?,?)
 `,
-      [name, email, password, phone, address],
+      [name, email, password, phone, cep, address],
     );
 
     res.status(201).json({
@@ -85,6 +86,10 @@ WHERE email=?
 
       email: user.email,
 
+      phone: user.phone,
+
+      cep: user.cep,
+
       address: user.address,
 
       role: user.role,
@@ -94,6 +99,37 @@ WHERE email=?
 
     res.status(500).json({
       message: "Login error",
+    });
+  }
+};
+
+export const updateUser = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    const { name, phone, cep, address } = req.body;
+
+    await pool.query(
+      `
+      UPDATE users
+      SET
+        name = ?,
+        phone = ?,
+        cep = ?,
+        address = ?
+      WHERE id = ?
+      `,
+      [name, phone, cep, address, id],
+    );
+
+    res.json({
+      message: "User updated successfully",
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      message: "Error updating user",
     });
   }
 };
