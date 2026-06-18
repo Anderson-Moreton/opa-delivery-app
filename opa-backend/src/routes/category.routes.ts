@@ -5,7 +5,8 @@ import {
   createCategory,
   updateCategory,
   deleteCategory,
-  getMenuCategories
+  getMenuCategories,
+  reorderCategories,
 } from '../controllers/category.controller';
 
 const router = Router();
@@ -18,6 +19,9 @@ router.get('/menu', getMenuCategories);
 
 // CREATE
 router.post('/', createCategory);
+
+// REORDER CATEGORIES
+router.put('/reorder', reorderCategories);
 
 // UPDATE
 router.put('/:id', updateCategory);
