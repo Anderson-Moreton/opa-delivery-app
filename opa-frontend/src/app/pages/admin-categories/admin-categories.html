@@ -21,7 +21,15 @@
     <div class="categories-list">
       @for (category of categories; track category.id) {
         <div class="category-item">
-          <span>
+          <div class="category-order">
+            <button class="move-btn" (click)="moveUp(category)" title="Subir categoria">↑</button>
+
+            <button class="move-btn" (click)="moveDown(category)" title="Descer categoria">
+              ↓
+            </button>
+          </div>
+
+          <span class="category-name">
             {{ category.name }}
           </span>
 
@@ -33,8 +41,8 @@
         </div>
       }
     </div>
-    <!-- BACK BUTTON -->
 
+    <!-- BACK BUTTON -->
     <div class="back-section">
       <button class="back-btn" routerLink="/admin/dashboard">Voltar ao Dashboard</button>
     </div>

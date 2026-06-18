@@ -5,59 +5,34 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class CategoryService {
+  private apiUrl = 'http://localhost:3333/categories';
 
-  private apiUrl =
-    'http://localhost:3333/categories';
-
-  constructor(
-    private http: HttpClient
-  ) {}
+  constructor(private http: HttpClient) {}
 
   getCategories(): Observable<any> {
-
     return this.http.get(this.apiUrl);
-
   }
 
   createCategory(category: any): Observable<any> {
-
-    return this.http.post(
-      this.apiUrl,
-      category
-    );
-
+    return this.http.post(this.apiUrl, category);
   }
 
-  updateCategory(
-    id: number,
-    category: any
-  ): Observable<any> {
-
-    return this.http.put(
-      `${this.apiUrl}/${id}`,
-      category
-    );
-
+  updateCategory(id: number, category: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}`, category);
   }
 
   deleteCategory(id: number): Observable<any> {
-
-    return this.http.delete(
-      `${this.apiUrl}/${id}`
-    );
-
+    return this.http.delete(`${this.apiUrl}/${id}`);
   }
 
   getMenuCategories(): Observable<any> {
-
-    return this.http.get(
-      `${this.apiUrl}/menu`
-    );
-
+    return this.http.get(`${this.apiUrl}/menu`);
   }
 
+  reorderCategories(categories: any) {
+    return this.http.put(`${this.apiUrl}/reorder`, categories);
+  }
 }
