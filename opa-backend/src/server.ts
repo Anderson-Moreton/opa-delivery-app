@@ -1,3 +1,5 @@
+import 'dotenv/config';
+
 import express from "express";
 
 import cors from "cors";
@@ -12,6 +14,12 @@ import authRoutes  from "./routes/auth.routes";
 
 import orderRoutes from "./routes/order.routes";
 
+import Stripe from "stripe";
+
+import paymentRoutes from "./routes/payment.routes";
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
+
 const app = express();
 
 app.use(cors());
@@ -23,6 +31,9 @@ app.use("/auth", authRoutes);
 
 /* ORDER ROUTES */
 app.use("/orders", orderRoutes);
+
+/* PAYMENT ROUTES */
+app.use("/payments", paymentRoutes);
 
 /* TEST ROUTE */
 
@@ -58,6 +69,8 @@ app.get("/", async (req, res) => {
 /* SERVER */
 
 const PORT = 3333;
+
+console.log("Stripe Key:", process.env.STRIPE_SECRET_KEY);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
