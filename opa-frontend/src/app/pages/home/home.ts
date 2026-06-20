@@ -1,8 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectorRef
-} from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, HostListener } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 
@@ -16,46 +12,15 @@ import { CategoryService } from '../../services/category.service';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [
-    CommonModule,
-    HeaderComponent,
-    FooterComponent,
-    ProductCardComponent
-  ],
+  imports: [CommonModule, HeaderComponent, FooterComponent, ProductCardComponent],
   templateUrl: './home.html',
-  styleUrl: './home.css'
+  styleUrl: './home.css',
 })
 export class Home implements OnInit {
-
   // CAROUSEL
   currentIndex = 0;
 
-  images = [
-    'assets/img/carousel01.png',
-    'assets/img/carousel02.png',
-    'assets/img/carousel03.png'
-  ];
-
-  next() {
-
-    this.currentIndex =
-      (this.currentIndex + 1) % this.images.length;
-
-  }
-
-  prev() {
-
-    this.currentIndex =
-      (this.currentIndex - 1 + this.images.length)
-      % this.images.length;
-
-  }
-
-  goTo(index: number) {
-
-    this.currentIndex = index;
-
-  }
+  images = ['assets/img/carousel01.png', 'assets/img/carousel02.png', 'assets/img/carousel03.png'];
 
   // PRODUCTS
   products: any[] = [];
@@ -63,83 +28,103 @@ export class Home implements OnInit {
   // DYNAMIC CATEGORIES
   categories: any[] = [];
 
+  // ACTIVE CATEGORY
+  selectedCategoryId: number | null = null;
+
   constructor(
     private productService: ProductService,
     private categoryService: CategoryService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
-
     this.loadProducts();
-
   }
 
+  // CAROUSEL
+  next() {
+    this.currentIndex = (this.currentIndex + 1) % this.images.length;
+  }
+
+  prev() {
+    this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
+  }
+
+  goTo(index: number) {
+    this.currentIndex = index;
+  }
+
+  // CATEGORY NAVIGATION
+  scrollToCategory(categoryId: number): void {
+    const element = document.getElementById(`category-${categoryId}`);
+
+    if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
+  }
+
+  @HostListener('window:scroll')
+  onScroll(): void {
+    const sections = document.querySelectorAll('[id^="category-"]');
+
+    let currentId: number | null = null;
+
+    sections.forEach((section) => {
+      const rect = section.getBoundingClientRect();
+
+      if (rect.top <= 200) {
+        currentId = Number(section.id.replace('category-', ''));
+      }
+    });
+
+    if (currentId !== null && currentId !== this.selectedCategoryId) {
+      this.selectedCategoryId = currentId;
+
+      this.cdr.detectChanges();
+    }
+  }
+
+  // LOAD PRODUCTS
   loadProducts(): void {
+    this.productService.getProducts().subscribe({
+      next: (products: any) => {
+        this.products = products;
 
-    this.productService
-      .getProducts()
-      .subscribe({
+        this.loadCategories();
+      },
 
-        next: (products: any) => {
-
-          this.products = products;
-
-          this.loadCategories();
-
-        },
-
-        error: (error) => {
-
-          console.error(error);
-
-        }
-
-      });
-
+      error: (error) => {
+        console.error(error);
+      },
+    });
   }
 
+  // LOAD CATEGORIES
   loadCategories(): void {
+    this.categoryService.getMenuCategories().subscribe({
+      next: (categories: any) => {
+        this.categories = categories.map((category: any) => {
+          return {
+            ...category,
 
-    this.categoryService
-      .getMenuCategories()
-      .subscribe({
+            products: this.products.filter((product) => product.category_id === category.id),
+          };
+        });
 
-        next: (categories: any) => {
-
-          this.categories =
-            categories.map(
-              (category: any) => {
-
-                return {
-
-                  ...category,
-
-                  products:
-                    this.products.filter(
-                      product =>
-                        product.category_id === category.id
-                    )
-
-                };
-
-              }
-            );
-
-          console.log(this.categories);
-
-          this.cdr.detectChanges();
-
-        },
-
-        error: (error) => {
-
-          console.error(error);
-
+        // Primeira categoria selecionada ao carregar
+        if (this.categories.length > 0) {
+          this.selectedCategoryId = this.categories[0].id;
         }
 
-      });
+        this.cdr.detectChanges();
+      },
 
+      error: (error) => {
+        console.error(error);
+      },
+    });
   }
-
 }

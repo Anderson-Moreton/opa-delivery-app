@@ -31,7 +31,23 @@
     </section>
 
     <!-- DYNAMIC CATEGORIES -->
-    <section class="column-card" *ngFor="let category of categories">
+    <section class="categories-nav">
+      <button
+        *ngFor="let category of categories"
+        class="category-button"
+        [class.active]="selectedCategoryId === category.id"
+        (click)="scrollToCategory(category.id)"
+      >
+        {{ category.name }}
+      </button>
+    </section>
+
+    <!-- DYNAMIC CATEGORIES -->
+    <section
+      class="column-card"
+      *ngFor="let category of categories"
+      [attr.id]="'category-' + category.id"
+    >
       <h2>
         {{ category.name }}
       </h2>
