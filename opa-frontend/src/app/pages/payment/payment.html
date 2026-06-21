@@ -16,7 +16,7 @@
       <div class="form-group">
         <label> Método de pagamento </label>
 
-        <select [(ngModel)]="paymentMethod">
+        <select [(ngModel)]="paymentMethod" (ngModelChange)="onPaymentMethodChange()">
           <option value="pix">PIX</option>
 
           <option value="credit">Cartão de Crédito</option>
@@ -39,22 +39,16 @@
 
       <!-- CREDIT -->
 
+      <!-- CREDIT -->
+
       <div *ngIf="paymentMethod === 'credit'" class="payment-details">
-        <input type="text" placeholder="Número do cartão" [(ngModel)]="cardNumber" />
+        <input type="text" placeholder="Nome impresso no cartão" [(ngModel)]="cardName" />
 
-        <input type="text" placeholder="Nome no cartão" [(ngModel)]="cardName" />
-
-        <div class="row">
-          <input type="text" placeholder="MM/AA" [(ngModel)]="expiration" />
-
-          <input type="text" placeholder="CVV" [(ngModel)]="cvv" />
-        </div>
+        <div id="card-element"></div>
 
         <select [(ngModel)]="installments">
           <option [value]="1">1x sem juros</option>
-
           <option [value]="2">2x sem juros</option>
-
           <option [value]="3">3x sem juros</option>
         </select>
       </div>
@@ -62,15 +56,7 @@
       <!-- DEBIT -->
 
       <div *ngIf="paymentMethod === 'debit'" class="payment-details">
-        <input type="text" placeholder="Número do cartão" [(ngModel)]="cardNumber" />
-
-        <input type="text" placeholder="Nome no cartão" [(ngModel)]="cardName" />
-
-        <div class="row">
-          <input type="text" placeholder="MM/AA" [(ngModel)]="expiration" />
-
-          <input type="text" placeholder="CVV" [(ngModel)]="cvv" />
-        </div>
+        <p>Debit payment coming soon.</p>
       </div>
 
       <!-- CASH -->
@@ -90,7 +76,13 @@
         />
       </div>
 
-      <button class="pay-btn" (click)="confirmOrder()">Confirmar Pedido</button>
+      <div *ngIf="paymentError" class="payment-error">
+        {{ paymentError }}
+      </div>
+
+      <button class="pay-btn" (click)="confirmOrder()" [disabled]="isProcessing">
+        {{ isProcessing ? 'Processando pagamento...' : 'Confirmar Pedido' }}
+      </button>
     </div>
 
     <div class="summary-card">
