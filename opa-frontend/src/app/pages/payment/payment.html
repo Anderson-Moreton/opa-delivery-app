@@ -19,9 +19,7 @@
         <select [(ngModel)]="paymentMethod" (ngModelChange)="onPaymentMethodChange()">
           <option value="pix">PIX</option>
 
-          <option value="credit">Cartão de Crédito</option>
-
-          <option value="debit">Cartão de Débito</option>
+          <option value="card">Cartão de Crédito/Débito</option>
 
           <option value="cash">Dinheiro</option>
         </select>
@@ -37,11 +35,9 @@
         <button class="secondary-btn">Copiar código PIX</button>
       </div>
 
-      <!-- CREDIT -->
+      <!-- CARD -->
 
-      <!-- CREDIT -->
-
-      <div *ngIf="paymentMethod === 'credit'" class="payment-details">
+      <div *ngIf="paymentMethod === 'card'" class="payment-details">
         <input type="text" placeholder="Nome impresso no cartão" [(ngModel)]="cardName" />
 
         <div id="card-element"></div>
@@ -51,12 +47,6 @@
           <option [value]="2">2x sem juros</option>
           <option [value]="3">3x sem juros</option>
         </select>
-      </div>
-
-      <!-- DEBIT -->
-
-      <div *ngIf="paymentMethod === 'debit'" class="payment-details">
-        <p>Debit payment coming soon.</p>
       </div>
 
       <!-- CASH -->

@@ -83,7 +83,7 @@ export class PaymentComponent implements OnInit {
   }
 
   async onPaymentMethodChange(): Promise<void> {
-    if (this.paymentMethod === 'credit' || this.paymentMethod === 'debit') {
+    if (this.paymentMethod === 'card') {
       setTimeout(async () => {
         await this.initializeStripe();
       }, 100);
@@ -197,7 +197,7 @@ export class PaymentComponent implements OnInit {
       return;
     }
 
-    if (this.paymentMethod === 'credit' && !this.cardName.trim()) {
+    if (this.paymentMethod === 'card' && !this.cardName.trim()) {
       alert('Digite o nome impresso no cartão');
 
       return;
@@ -205,7 +205,7 @@ export class PaymentComponent implements OnInit {
 
     this.isProcessing = true;
 
-    if (this.paymentMethod === 'credit' || this.paymentMethod === 'debit') {
+    if (this.paymentMethod === 'card') {
       const paymentApproved = await this.processStripePayment();
 
       if (!paymentApproved) {
