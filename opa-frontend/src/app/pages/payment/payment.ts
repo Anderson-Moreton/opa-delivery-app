@@ -20,6 +20,8 @@ import { PaymentService } from '../../services/payment.service';
 
 import { loadStripe, Stripe, StripeElements, StripeCardElement } from '@stripe/stripe-js';
 
+import { ToastService } from '../../services/toast.service';
+
 @Component({
   selector: 'app-payment',
   standalone: true,
@@ -28,7 +30,7 @@ import { loadStripe, Stripe, StripeElements, StripeCardElement } from '@stripe/s
   styleUrls: ['./payment.css'],
 })
 export class PaymentComponent implements OnInit {
-  paymentMethod = 'pix';
+  paymentMethod = '';
 
   userName = '';
 
@@ -58,12 +60,25 @@ export class PaymentComponent implements OnInit {
 
   paymentError = '';
 
+  pixQrCode = '';
+
+  pixCode = '';
+
+  showPix = false;
+
+  paymentIntentId = '';
+
+  pixStatusInterval: any = null;
+
+  pixConfirmed = false;
+
   constructor(
     private cartService: CartService,
     private router: Router,
     private orderService: OrderService,
     private paymentService: PaymentService,
     private cdr: ChangeDetectorRef,
+    private toastService: ToastService,
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -87,6 +102,16 @@ export class PaymentComponent implements OnInit {
       setTimeout(async () => {
         await this.initializeStripe();
       }, 100);
+    }
+
+    if (this.paymentMethod === 'pix' && !this.pixQrCode) {
+      this.showPix = false;
+
+      this.pixQrCode = '';
+
+      this.pixCode = '';
+
+      this.generatePix();
     }
   }
 
@@ -120,9 +145,7 @@ export class PaymentComponent implements OnInit {
 
   async processStripePayment(): Promise<boolean> {
     try {
-
       if (!this.stripe || !this.cardElement) {
-
         alert('Stripe não inicializado');
 
         return false;
@@ -140,8 +163,10 @@ export class PaymentComponent implements OnInit {
       });
 
       if (result.error) {
-
-        this.paymentError = result.error.message || 'Pagamento recusado';
+        this.paymentError =
+          result.error.message === 'Your card has been declined.'
+            ? 'Seu cartão foi recusado.'
+            : 'Pagamento recusado.';
 
         this.isProcessing = false;
 
@@ -151,7 +176,6 @@ export class PaymentComponent implements OnInit {
       }
 
       if (result.paymentIntent && result.paymentIntent.status === 'succeeded') {
-
         return true;
       }
 
@@ -159,7 +183,6 @@ export class PaymentComponent implements OnInit {
 
       return false;
     } catch (error) {
-
       this.isProcessing = false;
 
       this.paymentError = 'Erro ao processar pagamento';
@@ -188,17 +211,120 @@ export class PaymentComponent implements OnInit {
     });
   }
 
+  generatePix(): void {
+    const amountInCents = Math.round(this.total * 100);
+
+    this.paymentService.createPixPaymentIntent(amountInCents).subscribe({
+      next: (response) => {
+        this.pixQrCode = response.qrCode;
+
+        this.pixCode = response.pixCode;
+
+        this.paymentIntentId = response.paymentIntentId;
+
+        this.showPix = true;
+
+        if (!this.pixStatusInterval) {
+          this.pixStatusInterval = setInterval(() => {
+            this.checkPixStatus();
+          }, 5000);
+        }
+
+        this.cdr.detectChanges();
+      },
+
+      error: (error) => {
+        console.error(error);
+
+        this.toastService.show('Erro ao gerar PIX', 'error');
+
+        this.cdr.detectChanges();
+      },
+    });
+  }
+
+  copyPixCode(): void {
+    if (!this.pixCode) {
+      return;
+    }
+
+    navigator.clipboard.writeText(this.pixCode);
+
+    this.toastService.show('Código PIX copiado com sucesso!', 'success');
+  }
+
+  checkPixStatus(): void {
+    if (!this.paymentIntentId) {
+      return;
+    }
+
+    this.paymentService.getPaymentStatus(this.paymentIntentId).subscribe({
+      next: (response: any) => {
+        console.log('PIX Status:', response.status);
+
+        if (response.status === 'succeeded' && !this.pixConfirmed) {
+          this.pixConfirmed = true;
+
+          clearInterval(this.pixStatusInterval);
+
+          this.pixStatusInterval = null;
+
+          this.toastService.show('Pagamento PIX recebido!', 'success');
+
+          this.createOrder();
+        }
+      },
+
+      error: (error) => {
+        console.error(error);
+      },
+    });
+  }
+
+  createOrder(): void {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+
+    const order = {
+      userId: user.id,
+      total: this.total,
+      paymentMethod: this.paymentMethod,
+      items: this.cartItems,
+    };
+
+    this.orderService.createOrder(order).subscribe({
+      next: () => {
+        this.isProcessing = false;
+
+        this.cartService.clearCart();
+
+        this.router.navigate(['/order-success']);
+      },
+
+      error: () => {
+        this.isProcessing = false;
+
+        this.toastService.show('Erro ao criar pedido', 'error');
+      },
+    });
+  }
+
   async confirmOrder(): Promise<void> {
     this.paymentError = '';
 
+    if (!this.paymentMethod) {
+      this.toastService.show('Selecione uma forma de pagamento', 'error');
+
+      return;
+    }
+
     if (!this.address.trim()) {
-      alert('Digite o endereço');
+      this.toastService.show('Digite o endereço', 'error');
 
       return;
     }
 
     if (this.paymentMethod === 'card' && !this.cardName.trim()) {
-      alert('Digite o nome impresso no cartão');
+      this.toastService.show('Digite o nome impresso no cartão', 'error');
 
       return;
     }
@@ -215,34 +341,24 @@ export class PaymentComponent implements OnInit {
 
         return;
       }
+
+      this.createOrder();
+
+      return;
     }
 
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    if (this.paymentMethod === 'cash') {
+      this.createOrder();
 
-    const order = {
-      userId: user.id,
+      return;
+    }
 
-      total: this.total,
+    if (this.paymentMethod === 'pix') {
+      this.isProcessing = false;
 
-      paymentMethod: this.paymentMethod,
+      this.toastService.show('Aguardando confirmação do pagamento PIX', 'success');
 
-      items: this.cartItems,
-    };
-
-    this.orderService.createOrder(order).subscribe({
-      next: () => {
-        this.isProcessing = false;
-
-        this.cartService.clearCart();
-
-        this.router.navigate(['/order-success']);
-      },
-
-      error: (error) => {
-        this.isProcessing = false;
-
-        alert('Erro ao criar pedido');
-      },
-    });
+      return;
+    }
   }
 }

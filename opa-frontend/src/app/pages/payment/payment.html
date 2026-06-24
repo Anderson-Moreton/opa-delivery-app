@@ -17,6 +17,8 @@
         <label> Método de pagamento </label>
 
         <select [(ngModel)]="paymentMethod" (ngModelChange)="onPaymentMethodChange()">
+          <option value="" disabled selected>Selecione uma forma de pagamento</option>
+
           <option value="pix">PIX</option>
 
           <option value="card">Cartão de Crédito/Débito</option>
@@ -30,9 +32,21 @@
       <div *ngIf="paymentMethod === 'pix'" class="payment-details">
         <h4>Pagamento via PIX</h4>
 
-        <p>Escaneie QR Code para pagamento</p>
+        <p class="pix-instruction">Escaneie o QR Code para realizar o pagamento.</p>
 
-        <button class="secondary-btn">Copiar código PIX</button>
+        <div *ngIf="showPix">
+          <img [src]="pixQrCode" alt="QR Code PIX" class="pix-qrcode" />
+
+          <label>Código PIX Copia e Cola</label>
+
+          <textarea class="pix-code" readonly
+            >{{ pixCode }}
+          </textarea>
+
+          <div class="pix-copy-container">
+            <button class="secondary-btn" (click)="copyPixCode()">Copiar código PIX</button>
+          </div>
+        </div>
       </div>
 
       <!-- CARD -->
@@ -70,8 +84,13 @@
         {{ paymentError }}
       </div>
 
-      <button class="pay-btn" (click)="confirmOrder()" [disabled]="isProcessing">
-        {{ isProcessing ? 'Processando pagamento...' : 'Confirmar Pedido' }}
+      <button
+        *ngIf="paymentMethod !== 'pix'"
+        class="pay-btn"
+        (click)="confirmOrder()"
+        [disabled]="isProcessing"
+      >
+        {{ isProcessing ? 'Processando...' : 'Confirmar Pedido' }}
       </button>
     </div>
 

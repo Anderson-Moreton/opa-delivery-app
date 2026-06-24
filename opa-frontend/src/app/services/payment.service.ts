@@ -17,4 +17,14 @@ export class PaymentService {
       amount,
     });
   }
+
+  createPixPaymentIntent(amount: number): Observable<any> {
+    return this.http.post(`${this.apiUrl}/create-pix-payment-intent`, {
+      amount,
+    });
+  }
+
+  getPaymentStatus(paymentIntentId: string) {
+    return this.http.get<{ status: string }>(`${this.apiUrl}/payment-status/${paymentIntentId}`);
+  }
 }
