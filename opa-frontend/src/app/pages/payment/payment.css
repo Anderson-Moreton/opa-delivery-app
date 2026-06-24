@@ -131,3 +131,40 @@
   opacity: 0.7;
   cursor: not-allowed;
 }
+
+.pix-qrcode {
+  width: 220px;
+  max-width: 100%;
+  display: block;
+  margin: 1rem auto;
+}
+
+.pix-code {
+  width: 100%;
+  min-height: 70px;
+  resize: none;
+  padding: 10px;
+  border-radius: 8px;
+  margin: 10px 0;
+  font-size: 12px;
+  word-break: break-all;
+  text-align: center;
+}
+
+.pix-instruction {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.pix-copy-title {
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.pix-copy-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
