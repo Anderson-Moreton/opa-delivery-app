@@ -54,13 +54,10 @@ app.get("/", async (req, res) => {
   try {
     const connection = await pool.getConnection();
 
-    console.log("MySQL connected");
-
     connection.release();
 
     res.send("OPA Backend + MySQL");
   } catch (error) {
-    console.log(error);
 
     res.status(500).send("Database connection error");
   }
@@ -69,9 +66,6 @@ app.get("/", async (req, res) => {
 /* SERVER */
 
 const PORT = 3333;
-
-console.log("Stripe Key:", process.env.STRIPE_SECRET_KEY);
-
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

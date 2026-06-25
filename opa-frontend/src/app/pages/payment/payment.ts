@@ -236,7 +236,7 @@ export class PaymentComponent implements OnInit {
       error: (error) => {
         console.error(error);
 
-        this.toastService.show('Erro ao gerar PIX', 'error');
+        this.toastService.show('Não foi possível gerar o PIX.', 'error');
 
         this.cdr.detectChanges();
       },
@@ -260,7 +260,6 @@ export class PaymentComponent implements OnInit {
 
     this.paymentService.getPaymentStatus(this.paymentIntentId).subscribe({
       next: (response: any) => {
-        console.log('PIX Status:', response.status);
 
         if (response.status === 'succeeded' && !this.pixConfirmed) {
           this.pixConfirmed = true;
@@ -303,7 +302,7 @@ export class PaymentComponent implements OnInit {
       error: () => {
         this.isProcessing = false;
 
-        this.toastService.show('Erro ao criar pedido', 'error');
+        this.toastService.show('Não foi possível finalizar o pedido.', 'error');
       },
     });
   }

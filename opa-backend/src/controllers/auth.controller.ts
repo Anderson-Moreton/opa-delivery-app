@@ -6,8 +6,6 @@ export const register = async (req: Request, res: Response) => {
   try {
     const { name, email, password, phone, cep, address } = req.body;
 
-    console.log(req.body);
-
     const [userExists]: any = await pool.query(
       `
 SELECT id

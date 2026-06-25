@@ -64,8 +64,6 @@ export class AdminDashboardComponent implements OnInit {
           })
           .filter((category: any) => category.products.length > 0);
 
-        console.log(this.categories);
-
         this.cdr.detectChanges();
       },
 

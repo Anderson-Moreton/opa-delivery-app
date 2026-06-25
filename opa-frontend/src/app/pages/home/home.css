@@ -1,9 +1,9 @@
 .categories-nav {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 1rem;
   padding: 1rem;
-  margin: 1.0rem auto;
   flex-wrap: wrap;
   position: sticky;
   top: 80px; /* altura do header */
@@ -12,13 +12,13 @@
 
 .category-button {
   border: 1px solid #000;
-  padding: 12px 20px;
+  padding: 4px 14px;
   border-radius: 999px;
   background: #f0c33c;
   color: #312f2f;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
-  transition: all .2s ease;
+  transition: all 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -36,4 +36,24 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .categories-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+  }
+
+  .category-button {
+    padding: 5px 10px;
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 18px;
+    min-width: auto;
+  }
 }

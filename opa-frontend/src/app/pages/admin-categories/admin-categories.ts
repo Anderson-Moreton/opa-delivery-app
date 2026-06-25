@@ -168,7 +168,7 @@ export class AdminCategoriesComponent implements OnInit {
 
     this.categoryService.reorderCategories(categories).subscribe({
       next: () => {
-        console.log('Order saved');
+        
       },
 
       error: (error) => {

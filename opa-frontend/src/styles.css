@@ -271,31 +271,6 @@ a {
     align-items: center;
 }
 
-/* .row-box {
-
-.row-card {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 1rem;
-    row-gap: 3rem;
-    padding: 1rem;
-    justify-content: center;
-}
-
-.column-box {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin-block: 0.5rem;
-} 
-
-.row-box {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-} */
-
 .row-card {
     display: flex;
     flex-direction: row;

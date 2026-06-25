@@ -1,20 +1,61 @@
-# Projeto Integrador Digital House - ProjetoOPA
+# Opa Food
+
+Sistema de delivery desenvolvido com Angular, Node.js, Express, MySQL e Stripe.
+
+# Projeto Integrador 
 
 Figma: https://www.figma.com/file/XQJdAmq4x7CK38fIJGB6kH/Projeto-Integrador?node-id=0%3A1
 
-# Running
+## Funcionalidades
 
-To run project, follow these steps:
-- ```npm install``` 
-- ```npm start``` 
+* Cadastro e login de usuários
+* Carrinho de compras
+* Finalização de pedidos
+* Pagamento com cartão via Stripe
+* Pagamento PIX via Stripe
+* Histórico de pedidos
+* Painel administrativo
+* Dashboard de vendas
 
-The project will gonna be available in address localhost:3000.
+## Tecnologias
 
-# Database
+### Frontend
 
-Para rodar o banco de dados em ambiente local:
-1. Execute o XAMPP ou LAMPP
-2. Execute o comando ```sequelize db:migrate```
-3. Adicione os itens base manualmente, como a categoria de produtos, por exemplo.
+* Angular
+* TypeScript
+* CSS
 
-Para criar migrations, execute: ```npx makemigration --name <nome da migração>```
+### Backend
+
+* Node.js
+* Express
+* TypeScript
+
+### Banco de Dados
+
+* MySQL
+
+### Pagamentos
+
+* Stripe Card Payments
+* Stripe PIX
+
+## Como executar
+
+### Backend
+
+```bash
+npm install
+npm run dev
+```
+
+### Frontend
+
+```bash
+npm install
+ng serve
+```
+
+## Autor
+
+Anderson Moreton
