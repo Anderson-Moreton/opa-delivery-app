@@ -21,13 +21,13 @@ main {
   width: 100%;
   max-width: 400px;
 
-  background: #CEDADA;
-  border: 1px solid #312F2F;
+  background: #cedada;
+  border: 1px solid #312f2f;
   border-radius: 12px;
 
   padding: 2rem;
 
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* título */
@@ -59,15 +59,15 @@ label {
 input {
   padding: 12px;
   border-radius: 8px;
-  border: 1px solid #312F2F;
+  border: 1px solid #312f2f;
 
   font-size: 1rem;
 }
 
 /* botão */
 button {
-  background: #F8C537;
-  border: 1px solid #312F2F;
+  background: #f8c537;
+  border: 1px solid #312f2f;
   border-radius: 10px;
   padding: 12px;
   font-weight: 600;
@@ -80,8 +80,8 @@ button {
 
 /* hover */
 button:hover {
-  background: #312F2F;
-  color: #F8C537;
+  background: #312f2f;
+  color: #f8c537;
 }
 
 /* cadastro */
@@ -95,7 +95,7 @@ button:hover {
 
 /* link */
 .register-link a {
-  color: #312F2F;
+  color: #312f2f;
   font-weight: 600;
   text-decoration: none;
   transition: 0.2s ease;
@@ -103,5 +103,5 @@ button:hover {
 
 /* hover */
 .register-link a:hover {
-  color: #F8C537;
+  color: #f8c537;
 }
