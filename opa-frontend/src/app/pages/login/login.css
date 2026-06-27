@@ -8,11 +8,9 @@
 /* conteúdo */
 main {
   flex: 1;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   padding: 2rem;
 }
 
@@ -20,20 +18,17 @@ main {
 .login-container {
   width: 100%;
   max-width: 400px;
-
   background: #cedada;
   border: 1px solid #312f2f;
   border-radius: 12px;
-
-  padding: 2rem;
-
+  padding: 1rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* título */
 .login-container h2 {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 /* formulário */
@@ -104,4 +99,37 @@ button:hover {
 /* hover */
 .register-link a:hover {
   color: #f8c537;
+}
+
+/* Google */
+
+.divider {
+  margin: 16px 0 12px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #666;
+  font-size: 14px;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #ccc;
+}
+
+.divider span {
+  padding: 0 10px;
+}
+
+#google-button {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.register-link {
+  margin-top: 12px;
+  text-align: center;
 }
