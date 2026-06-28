@@ -1,4 +1,4 @@
-import 'dotenv/config';
+import "dotenv/config";
 
 import express from "express";
 
@@ -10,13 +10,15 @@ import productRoutes from "./routes/product.routes";
 
 import categoryRoutes from "./routes/category.routes";
 
-import authRoutes  from "./routes/auth.routes";
+import authRoutes from "./routes/auth.routes";
 
 import orderRoutes from "./routes/order.routes";
 
-import Stripe from "stripe";
-
 import paymentRoutes from "./routes/payment.routes";
+
+import contactRoutes from "./routes/contact.routes";
+
+import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
@@ -34,6 +36,9 @@ app.use("/orders", orderRoutes);
 
 /* PAYMENT ROUTES */
 app.use("/payments", paymentRoutes);
+
+/* CONTACT ROUTES */
+app.use("/contact", contactRoutes);
 
 /* TEST ROUTE */
 
@@ -58,7 +63,6 @@ app.get("/", async (req, res) => {
 
     res.send("OPA Backend + MySQL");
   } catch (error) {
-
     res.status(500).send("Database connection error");
   }
 });

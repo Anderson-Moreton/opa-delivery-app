@@ -5,7 +5,7 @@
 
   <div class="page">
     <main>
-      <!-- banner -->
+      <!-- Banner -->
       <section class="contact-banner">
         <img src="assets/img/mensagem.jpg" alt="Contato" />
 
@@ -14,32 +14,37 @@
         </div>
       </section>
 
-      <!-- form -->
+      <!-- Contact Form -->
       <section class="contact-content">
-        <form class="contact-form">
+        <form class="contact-form" (ngSubmit)="sendMessage()">
           <div class="form-group">
             <label>Nome Completo</label>
 
-            <input type="text" placeholder="" />
+            <input type="text" [(ngModel)]="name" name="name" placeholder="Digite seu nome" />
           </div>
 
           <div class="form-group">
             <label>E-mail</label>
 
-            <input type="email" placeholder="" />
+            <input type="email" [(ngModel)]="email" name="email" placeholder="Digite seu e-mail" />
           </div>
 
           <div class="form-row">
             <div class="form-group">
               <label>Telefone</label>
 
-              <input type="text" placeholder="" />
+              <input
+                type="text"
+                [(ngModel)]="phone"
+                name="phone"
+                placeholder="Digite seu telefone"
+              />
             </div>
 
             <div class="form-group">
               <label>Cidade</label>
 
-              <input type="text" placeholder="" />
+              <input type="text" [(ngModel)]="city" name="city" placeholder="Digite sua cidade" />
             </div>
 
             <div class="form-group">
@@ -82,7 +87,12 @@
           <div class="form-group">
             <label>Mensagem</label>
 
-            <textarea rows="8"></textarea>
+            <textarea
+              rows="8"
+              [(ngModel)]="message"
+              name="message"
+              placeholder="Digite sua mensagem"
+            ></textarea>
           </div>
 
           <button type="submit">Enviar</button>
