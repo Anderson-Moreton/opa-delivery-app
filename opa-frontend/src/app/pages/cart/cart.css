@@ -5,6 +5,7 @@ main {
   margin-bottom: 2rem;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 /* container central */
@@ -133,8 +134,8 @@ h2 {
 .continue-btn {
   background-color: #312f2f;
   color: white;
-  border: none;
-  border-radius: 10px;
+  border: 1px solid #000;
+  border-radius: 999px;
   padding: 12px 20px;
   cursor: pointer;
   font-weight: bold;
@@ -150,14 +151,14 @@ h2 {
 /* botão base */
 .cart-actions button {
   flex: 1;
-  padding: 12px;
+  padding: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 10px;
+  border-radius: 999px;
   font-weight: 600;
   cursor: pointer;
-  border: none;
+  border: 1px solid #000;
   transition: all 0.25s ease;
 }
 
