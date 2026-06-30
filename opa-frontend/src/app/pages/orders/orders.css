@@ -54,3 +54,45 @@
   border-radius: 20px;
   background: #fff8d6;
 }
+
+.empty-orders {
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.empty-icon {
+  font-size: 70px;
+  margin-bottom: 20px;
+}
+
+.empty-orders h2 {
+  font-size: 28px;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+.empty-orders p {
+  color: #666;
+  margin-bottom: 30px;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.menu-btn {
+  display: inline-block;
+  text-decoration: none;
+  padding: 10px 14px;
+  font-weight: 600;
+  transition: 0.3s;
+  border: 1px solid #000;
+  border-radius: 999px;
+  background: #f0c33c;
+  color: #312f2f;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.menu-btn:hover {
+  background: #312f31;
+  color: #f0c33c;
+}
