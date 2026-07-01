@@ -18,6 +18,8 @@ import paymentRoutes from "./routes/payment.routes";
 
 import contactRoutes from "./routes/contact.routes";
 
+import favoriteRoutes from "./routes/favorite.routes";
+
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
@@ -40,21 +42,21 @@ app.use("/payments", paymentRoutes);
 /* CONTACT ROUTES */
 app.use("/contact", contactRoutes);
 
-/* TEST ROUTE */
+/* FAVORITE ROUTES  */
+app.use("/favorites", favoriteRoutes);
 
+/* TEST ROUTE */
 app.get("/products-test", (req, res) => {
   res.send("products route works");
 });
 
 /* PRODUCTS ROUTES */
-
 app.use("/products", productRoutes);
 
 /* CATEGORIES ROUTES */
 app.use("/categories", categoryRoutes);
 
 /* ROOT ROUTE */
-
 app.get("/", async (req, res) => {
   try {
     const connection = await pool.getConnection();
@@ -68,7 +70,6 @@ app.get("/", async (req, res) => {
 });
 
 /* SERVER */
-
 const PORT = 3333;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

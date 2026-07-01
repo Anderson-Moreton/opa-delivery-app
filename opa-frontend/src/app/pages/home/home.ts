@@ -3,11 +3,18 @@ import { Component, OnInit, ChangeDetectorRef, HostListener } from '@angular/cor
 import { CommonModule } from '@angular/common';
 
 import { HeaderComponent } from '../../components/header/header';
+
 import { FooterComponent } from '../../components/footer/footer';
+
 import { ProductCardComponent } from '../../components/product-card/product-card';
 
 import { ProductService } from '../../services/product.service';
+
 import { CategoryService } from '../../services/category.service';
+
+import { FavoriteService } from '../../services/favorite.service';
+
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -34,11 +41,13 @@ export class Home implements OnInit {
   constructor(
     private productService: ProductService,
     private categoryService: CategoryService,
+    private favoriteService: FavoriteService,
+    private authService: AuthService,
     private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
-    this.loadProducts();
+    this.loadFavorites();
   }
 
   // CAROUSEL
@@ -85,6 +94,28 @@ export class Home implements OnInit {
 
       this.cdr.detectChanges();
     }
+  }
+
+  // LOAD FAVORITES
+  loadFavorites(): void {
+    const user = this.authService.getCurrentUser();
+
+    if (!user) {
+      this.loadProducts();
+      return;
+    }
+
+    this.favoriteService.getFavorites(user.id).subscribe({
+      next: (favorites) => {
+        this.favoriteService.setFavorites(favorites);
+
+        this.loadProducts();
+      },
+
+      error: () => {
+        this.loadProducts();
+      },
+    });
   }
 
   // LOAD PRODUCTS
