@@ -44,9 +44,12 @@ export const routes: Routes = [
   },
   {
     path: 'orders/:id',
-    loadComponent: () => 
-      import('./pages/order-details/order-details')
-    .then(m => m.OrderDetailsComponent),
+    loadComponent: () =>
+      import('./pages/order-details/order-details').then((m) => m.OrderDetailsComponent),
+  },
+  {
+    path: 'favorites',
+    loadComponent: () => import('./pages/favorites/favorites').then((m) => m.FavoritesComponent),
   },
   {
     path: 'login',
@@ -98,5 +101,5 @@ export const routes: Routes = [
     path: 'admin/orders/:id',
     component: AdminOrderDetailsComponent,
     canActivate: [adminGuard],
-  }
+  },
 ];
