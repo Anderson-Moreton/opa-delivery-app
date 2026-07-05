@@ -1,0 +1,38 @@
+<app-header></app-header>
+
+<app-toast></app-toast>
+
+<div class="favorites-container">
+
+  <div *ngIf="favorites.length === 0" class="empty-favorites">
+    <div class="empty-icon">❤️</div>
+
+    <h2>Você ainda não possui produtos favoritos</h2>
+
+    <p>Adicione seus lanches favoritos para encontrá-los rapidamente.</p>
+
+    <a routerLink="/" class="menu-btn"> Ver Cardápio </a>
+  </div>
+
+  <div class="favorites-list" *ngIf="favorites.length > 0">
+    <div class="favorite-card" *ngFor="let product of favorites">
+      <img [src]="product.image" [alt]="product.name" />
+
+      <div class="favorite-info">
+        <h3>{{ product.name }}</h3>
+
+        <p>{{ product.description }}</p>
+
+        <strong>R$ {{ product.price }}</strong>
+      </div>
+
+      <div class="favorite-actions">
+        <button class="add-btn" (click)="addToCart(product)">Adicionar</button>
+
+        <button class="remove-btn" (click)="removeFavorite(product)">❤️ Remover</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>
