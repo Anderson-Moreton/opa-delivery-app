@@ -76,12 +76,12 @@ label {
 input,
 select {
   width: 100%;
-  height: 46px;
+  height: 38px;
   box-sizing: border-box;
   border: 1px solid #312F2F;
   border-radius: 10px;
   background: #E6E09A;
-  padding: 0.9rem;
+  padding: 0.3rem;
   font-size: 0.90rem;
   outline: none;
   font-family: inherit;
@@ -90,7 +90,7 @@ select {
 /* textarea */
 textarea {
   resize: none;
-  min-height: 120px;
+  min-height: 100px;
   width: 100%;
   box-sizing: border-box;
   border: 1px solid #312F2F;
