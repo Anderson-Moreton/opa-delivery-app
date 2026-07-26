@@ -3,52 +3,50 @@
     <div class="logo">
       <img src="assets/img/logo_fundo_branco.svg" alt="Logo Opa com fundo branco" />
     </div>
-
     <div class="menuCabecalho">
       <div class="itemsMenu">
-        <div class="itemMenu">
-          <a routerLink="/">Menu</a>
-        </div>
-
-        <div class="itemMenu">
-          <a routerLink="/contact">Contato</a>
-        </div>
-
-        <div class="itemMenu">
-          <a routerLink="/about">Sobre nós</a>
-        </div>
+        <div class="itemMenu"><a routerLink="/">Menu</a></div>
+        <div class="itemMenu"><a routerLink="/contact">Contato</a></div>
+        <div class="itemMenu"><a routerLink="/about">Sobre nós</a></div>
         <div class="itemMenu">
           <a routerLink="/cart" class="cart-icon">
             Meu carrinho
-
             <span class="cart-badge" *ngIf="cartService.getTotalItems() > 0">
               {{ cartService.getTotalItems() }}
             </span>
           </a>
         </div>
         <!-- NOT LOGGED -->
-        <div class="itemMenu" *ngIf="!user">
-          <a routerLink="/login"> Entrar </a>
-        </div>
-
+        <div class="itemMenu" *ngIf="!user"><a routerLink="/login"> Entrar </a></div>
         <!-- LOGGED -->
         <div class="itemMenu user-menu" *ngIf="user">
           <button class="user-button" (click)="toggleDropdown()">Olá, {{ user.name }} ▼</button>
-
           <div class="dropdown-menu" *ngIf="dropdownOpen">
             <a routerLink="/account"> Minha Conta </a>
-
             <a routerLink="/favorites">Meus Favoritos </a>
-
             <a routerLink="/orders"> Meus Pedidos </a>
-
             <a *ngIf="isAdmin()" routerLink="/admin/dashboard"> Dashboard </a>
-
             <a *ngIf="isAdmin()" routerLink="/admin/orders"> Pedidos Recebidos </a>
-
             <button (click)="logout()">Logout</button>
           </div>
         </div>
+      </div>
+      <div class="barraPesquisar">
+        <select aria-label="Filtrar por categoria">
+          <option value="todos" selected>Todos</option>
+          <option value="burger">Burger</option>
+          <option value="hot-dog">Hot Dog</option>
+          <option value="batata">Batata</option>
+          <option value="bebida">Bebida</option>
+          <option value="combo">Combo</option>
+        </select>
+        <input type="search" placeholder="Pesquisar aqui..." aria-label="Pesquisar" />
+        <button type="button" class="botaoPesquisar" aria-label="Buscar">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="11" cy="11" r="6"></circle>
+            <path d="m16 16 5 5"></path>
+          </svg>
+        </button>
       </div>
     </div>
   </div>
