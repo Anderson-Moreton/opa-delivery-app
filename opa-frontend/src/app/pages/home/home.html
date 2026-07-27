@@ -3,35 +3,35 @@
 
   <main>
     <!-- CAROUSEL -->
-    <section class="banner">
+    <section class="banner" *ngIf="!isSearching">
       <div class="carousel">
         <img
           *ngFor="let img of images; let i = index"
           [src]="img"
           [class.active]="i === currentIndex"
         />
-      </div>
 
-      <button class="nav prev" (click)="prev()">‹</button>
+        <button class="nav prev" (click)="prev()">‹</button>
 
-      <button class="nav next" (click)="next()">›</button>
+        <button class="nav next" (click)="next()">›</button>
 
-      <div class="dots">
-        <span
-          *ngFor="let img of images; let i = index"
-          (click)="goTo(i)"
-          [class.active]="i === currentIndex"
-        >
-        </span>
-      </div>
+        <div class="dots">
+          <span
+            *ngFor="let img of images; let i = index"
+            (click)="goTo(i)"
+            [class.active]="i === currentIndex"
+          >
+          </span>
+        </div>
 
-      <div class="overlay">
-        <h1 class="style-title">Menu</h1>
+        <div class="overlay">
+          <h1 class="style-title">Menu</h1>
+        </div>
       </div>
     </section>
 
-    <!-- DYNAMIC CATEGORIES -->
-    <section class="categories-nav">
+    <!-- CATEGORY NAVIGATION -->
+    <section class="categories-nav" *ngIf="!isSearching">
       <button
         *ngFor="let category of categories"
         class="category-button"
@@ -42,21 +42,59 @@
       </button>
     </section>
 
-    <!-- DYNAMIC CATEGORIES -->
-    <section
-      class="column-card"
-      *ngFor="let category of categories"
-      [attr.id]="'category-' + category.id"
-    >
-      <h2>
-        {{ category.name }}
-      </h2>
+    <!-- SEARCH RESULTS -->
+    <section class="search-results" *ngIf="isSearching">
+      <h2>Resultados da:</h2>
 
-      <div class="row-card">
-        <app-product-card *ngFor="let product of category.products" [product]="product">
-        </app-product-card>
+      <div class="search-term">
+        <span>Pesquisa:</span>
+
+        <strong>{{ search }}</strong>
       </div>
+
+      <div class="search-count">
+        {{ products.length }}
+        {{ products.length === 1 ? 'produto encontrado' : 'produtos encontrados' }}
+      </div>
+
+      <button class="clear-search-btn" (click)="clearSearch()">✕ Limpar</button>
     </section>
+
+    <!-- NORMAL HOME -->
+    <ng-container *ngIf="!isSearching">
+      <section
+        class="column-card"
+        *ngFor="let category of categories"
+        [attr.id]="'category-' + category.id"
+      >
+        <h2>{{ category.name }}</h2>
+
+        <div class="row-card">
+          <app-product-card *ngFor="let product of category.products" [product]="product">
+          </app-product-card>
+        </div>
+      </section>
+    </ng-container>
+
+    <!-- SEARCH PRODUCTS -->
+    <ng-container *ngIf="isSearching">
+      <section class="search-products" *ngIf="products.length > 0">
+        <app-product-card *ngFor="let product of products" [product]="product"> </app-product-card>
+      </section>
+
+      <section class="no-results" *ngIf="products.length === 0">
+        <div class="empty-search-icon">🔍</div>
+
+        <h2>Nenhum produto encontrado</h2>
+
+        <p>
+          Não encontramos produtos para
+          <strong>"{{ search }}"</strong>.
+        </p>
+
+        <p>Tente outro termo ou selecione outra categoria.</p>
+      </section>
+    </ng-container>
   </main>
 
   <app-footer></app-footer>
