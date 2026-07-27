@@ -16,6 +16,10 @@ import { FavoriteService } from '../../services/favorite.service';
 
 import { AuthService } from '../../services/auth.service';
 
+import { ActivatedRoute } from '@angular/router';
+
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -38,16 +42,32 @@ export class Home implements OnInit {
   // ACTIVE CATEGORY
   selectedCategoryId: number | null = null;
 
+  search = '';
+
+  category = '';
+
+  isSearching = false;
+
   constructor(
     private productService: ProductService,
     private categoryService: CategoryService,
     private favoriteService: FavoriteService,
     private authService: AuthService,
     private cdr: ChangeDetectorRef,
+    private route: ActivatedRoute,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
-    this.loadFavorites();
+    this.route.queryParams.subscribe((params) => {
+      this.search = params['search'] || '';
+      this.category = params['category'] || '';
+
+      this.isSearching =
+        this.search.trim() !== '' || (this.category !== '' && this.category !== 'todos');
+
+      this.loadFavorites();
+    });
   }
 
   // CAROUSEL
@@ -120,7 +140,7 @@ export class Home implements OnInit {
 
   // LOAD PRODUCTS
   loadProducts(): void {
-    this.productService.getProducts().subscribe({
+    this.productService.getProducts(this.search, this.category).subscribe({
       next: (products: any) => {
         this.products = products;
 
@@ -157,5 +177,9 @@ export class Home implements OnInit {
         console.error(error);
       },
     });
+  }
+
+  clearSearch(): void {
+    this.router.navigate(['/']);
   }
 }
