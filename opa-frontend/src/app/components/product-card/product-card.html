@@ -4,8 +4,10 @@
     {{ favoriteService.isFavorite(product.id) ? '❤️' : '🤍' }}
   </button>
 
-  <!-- Imagem -->
-  <img class="card-image" [src]="product.image" [alt]="product.name" />
+  <!-- Área da imagem -->
+  <div class="card-image-container">
+    <img class="card-image" [src]="product.image" [alt]="product.name" />
+  </div>
 
   <div class="card-body">
     <div class="card-header">
