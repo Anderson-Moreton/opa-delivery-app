@@ -40,6 +40,10 @@ export class HeaderComponent {
     this.dropdownOpen = !this.dropdownOpen;
   }
 
+  closeDropdown(): void {
+    this.dropdownOpen = false;
+  }
+
   isAdmin(): boolean {
     return this.user?.role === 'admin';
   }
