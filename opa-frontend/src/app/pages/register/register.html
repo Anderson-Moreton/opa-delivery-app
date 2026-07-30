@@ -45,23 +45,33 @@
         <div class="form-group">
           <label>Senha</label>
 
-          <input
-            type="password"
-            [(ngModel)]="password"
-            name="password"
-            placeholder="Digite sua senha"
-          />
+          <div class="password-wrapper">
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              [(ngModel)]="password"
+              name="password"
+              placeholder="Digite sua senha"
+            />
+
+            <button type="button" class="toggle-password" (click)="togglePassword()">👁</button>
+          </div>
         </div>
 
         <div class="form-group">
           <label>Confirmar senha</label>
 
-          <input
-            type="password"
-            [(ngModel)]="confirmPassword"
-            name="confirmPassword"
-            placeholder="Confirme sua senha"
-          />
+          <div class="password-wrapper">
+            <input
+              [type]="showConfirmPassword ? 'text' : 'password'"
+              [(ngModel)]="confirmPassword"
+              name="confirmPassword"
+              placeholder="Confirme sua senha"
+            />
+
+            <button type="button" class="toggle-password" (click)="toggleConfirmPassword()">
+              👁
+            </button>
+          </div>
         </div>
 
         <!-- Endereço -->
