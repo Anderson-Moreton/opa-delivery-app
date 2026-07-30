@@ -32,6 +32,8 @@ export class RegisterComponent {
 
   password = '';
   confirmPassword = '';
+  showPassword = false;
+  showConfirmPassword = false;
 
   cep = '';
   street = '';
@@ -81,6 +83,14 @@ export class RegisterComponent {
         this.toast.show(error.error.message || 'Registration error', 'error');
       },
     });
+  }
+
+  togglePassword(): void {
+    this.showPassword = !this.showPassword;
+  }
+
+  toggleConfirmPassword(): void {
+    this.showConfirmPassword = !this.showConfirmPassword;
   }
 
   searchCep() {
