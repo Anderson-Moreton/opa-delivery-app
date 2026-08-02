@@ -1,4 +1,137 @@
-/* CATEGORY NAVIGATION */
+/* ===========================
+   BANNER / CAROUSEL
+=========================== */
+
+.banner {
+  width: 100%;
+  height: 420px;
+  position: relative;
+  overflow: hidden;
+  background: #000;
+}
+
+.carousel {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel img {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center center;
+
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+}
+
+.carousel img.active {
+  opacity: 1;
+}
+
+/* Overlay */
+
+.overlay {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  pointer-events: none;
+}
+
+/* Texto */
+
+.style-title {
+  color: #fff;
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  font-weight: 400;
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.9);
+}
+
+/* Botões */
+
+.nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 52px;
+  height: 52px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: rgba(0, 0, 0, 0.35);
+  color: #fff;
+
+  font-size: 2.2rem;
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: 0.25s;
+  z-index: 5;
+}
+
+.nav:hover {
+  background: rgba(0, 0, 0, 0.65);
+}
+
+.nav.prev {
+  left: 20px;
+}
+
+.nav.next {
+  right: 20px;
+}
+
+/* Bolinhas */
+
+.dots {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  display: flex;
+  gap: 10px;
+
+  z-index: 5;
+}
+
+.dots span {
+  width: 12px;
+  height: 12px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.45);
+
+  cursor: pointer;
+
+  transition: 0.25s;
+}
+
+.dots span.active {
+  background: #fff;
+  transform: scale(1.15);
+}
+
+/* ===========================
+   CATEGORY NAVIGATION
+=========================== */
 
 .categories-nav {
   display: flex;
@@ -22,9 +155,10 @@
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
+
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 }
 
 .category-button:hover {
@@ -41,16 +175,21 @@ html {
   scroll-behavior: smooth;
 }
 
-/* SEARCH */
+/* ===========================
+   SEARCH
+=========================== */
 
 .search-results {
   max-width: 1200px;
   margin: 2.5rem auto;
-  text-align: center;
-  height: 4rem;
+
   display: flex;
   justify-content: center;
   align-items: center;
+
+  text-align: center;
+
+  height: 4rem;
 }
 
 .search-results h2 {
@@ -63,8 +202,11 @@ html {
   display: flex;
   justify-content: center;
   align-items: center;
+
   gap: 1rem;
+
   padding: 1rem;
+
   font-size: 1.15rem;
 }
 
@@ -81,54 +223,76 @@ html {
   display: flex;
   justify-content: center;
   align-items: center;
+
   gap: 0.5rem;
+
   padding: 0 1rem;
+
+  height: 4rem;
+
   border-radius: 999px;
+
   background: #312f2f;
   color: #f0c33c;
+
   font-weight: 600;
-  height: 4rem;
 }
 
 .clear-search-btn {
-  background: transparent;
-  border: 1px solid #f0c33c;
-  color: #312f2f;
-  padding: 6px 14px;
-  border-radius: 20px;
-  cursor: pointer;
-  font-family: inherit;
-  transition: 0.2s;
   margin-top: 1rem;
   margin-left: 1rem;
+
+  padding: 6px 14px;
+
+  border: 1px solid #f0c33c;
+  border-radius: 20px;
+
+  background: transparent;
+  color: #312f2f;
+
+  cursor: pointer;
+
+  font-family: inherit;
+
+  transition: 0.2s;
 }
 
 .clear-search-btn:hover {
   background: #f0c33c;
 }
 
-/* PRODUCTS */
+/* ===========================
+   PRODUCTS
+=========================== */
 
 .search-products {
   max-width: 1400px;
+
   margin: 0 auto 4rem;
   padding: 0 2rem;
+
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 300px));
   justify-content: center;
+
   gap: 2rem;
 }
 
-/* NO RESULTS */
+/* ===========================
+   NO RESULTS
+=========================== */
 
 .no-results {
   max-width: 650px;
+
   margin: 2rem auto;
   padding: 2rem;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
   text-align: center;
 }
 
@@ -154,9 +318,35 @@ html {
   color: #f0c33c;
 }
 
-/* MOBILE */
+/* ===========================
+   TABLET
+=========================== */
+
+@media (max-width: 1024px) {
+  .banner {
+    height: 340px;
+  }
+}
+
+/* ===========================
+   MOBILE
+=========================== */
 
 @media (max-width: 768px) {
+  .banner {
+    height: 260px;
+  }
+
+  .nav {
+    width: 42px;
+    height: 42px;
+    font-size: 1.8rem;
+  }
+
+  .style-title {
+    font-size: 2.4rem;
+  }
+
   .search-results {
     margin: 2rem auto;
     padding: 0 1rem;

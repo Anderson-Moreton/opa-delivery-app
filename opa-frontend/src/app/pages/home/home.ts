@@ -1,24 +1,17 @@
-import { Component, OnInit, ChangeDetectorRef, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, HostListener } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 
 import { HeaderComponent } from '../../components/header/header';
-
 import { FooterComponent } from '../../components/footer/footer';
-
 import { ProductCardComponent } from '../../components/product-card/product-card';
 
 import { ProductService } from '../../services/product.service';
-
 import { CategoryService } from '../../services/category.service';
-
 import { FavoriteService } from '../../services/favorite.service';
-
 import { AuthService } from '../../services/auth.service';
 
-import { ActivatedRoute } from '@angular/router';
-
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -27,19 +20,20 @@ import { Router } from '@angular/router';
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
-export class Home implements OnInit {
+export class Home implements OnInit, OnDestroy {
+
   // CAROUSEL
   currentIndex = 0;
 
-  images = ['assets/img/carousel01.png', 'assets/img/carousel02.png', 'assets/img/carousel03.png'];
+  images = ['assets/img/carousel01.png', 'assets/img/carousel02.png', 'assets/img/carousel03.png', 'assets/img/carousel04.png'];
+
+  private carouselInterval: any;
 
   // PRODUCTS
   products: any[] = [];
 
-  // DYNAMIC CATEGORIES
   categories: any[] = [];
 
-  // ACTIVE CATEGORY
   selectedCategoryId: number | null = null;
 
   search = '';
@@ -58,7 +52,10 @@ export class Home implements OnInit {
     private router: Router,
   ) {}
 
+  // INIT
   ngOnInit(): void {
+    this.startCarousel();
+
     this.route.queryParams.subscribe((params) => {
       this.search = params['search'] || '';
       this.category = params['category'] || '';
@@ -70,17 +67,40 @@ export class Home implements OnInit {
     });
   }
 
+  ngOnDestroy(): void {
+    clearInterval(this.carouselInterval);
+  }
+
   // CAROUSEL
-  next() {
+  startCarousel(): void {
+    this.carouselInterval = setInterval(() => {
+      this.currentIndex = (this.currentIndex + 1) % this.images.length;
+
+      this.cdr.detectChanges();
+    }, 5000);
+  }
+
+  restartCarousel(): void {
+    clearInterval(this.carouselInterval);
+    this.startCarousel();
+  }
+
+  next(): void {
     this.currentIndex = (this.currentIndex + 1) % this.images.length;
+
+    this.restartCarousel();
   }
 
-  prev() {
+  prev(): void {
     this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
+
+    this.restartCarousel();
   }
 
-  goTo(index: number) {
+  goTo(index: number): void {
     this.currentIndex = index;
+
+    this.restartCarousel();
   }
 
   // CATEGORY NAVIGATION
@@ -116,7 +136,7 @@ export class Home implements OnInit {
     }
   }
 
-  // LOAD FAVORITES
+  // FAVORITES
   loadFavorites(): void {
     const user = this.authService.getCurrentUser();
 
@@ -138,7 +158,7 @@ export class Home implements OnInit {
     });
   }
 
-  // LOAD PRODUCTS
+  // PRODUCTS
   loadProducts(): void {
     this.productService.getProducts(this.search, this.category).subscribe({
       next: (products: any) => {
@@ -153,7 +173,7 @@ export class Home implements OnInit {
     });
   }
 
-  // LOAD CATEGORIES
+  // CATEGORIES
   loadCategories(): void {
     this.categoryService.getMenuCategories().subscribe({
       next: (categories: any) => {
@@ -165,7 +185,6 @@ export class Home implements OnInit {
           };
         });
 
-        // Primeira categoria selecionada ao carregar
         if (this.categories.length > 0) {
           this.selectedCategoryId = this.categories[0].id;
         }
@@ -179,6 +198,7 @@ export class Home implements OnInit {
     });
   }
 
+  // SEARCH
   clearSearch(): void {
     this.router.navigate(['/']);
   }
