@@ -70,7 +70,7 @@ app.get("/", async (req, res) => {
 });
 
 /* SERVER */
-const PORT = 3333;
+const PORT = Number(process.env.PORT) || 3333;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
