@@ -20,10 +20,6 @@ import contactRoutes from "./routes/contact.routes";
 
 import favoriteRoutes from "./routes/favorite.routes";
 
-import Stripe from "stripe";
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
-
 const app = express();
 
 app.use(cors());

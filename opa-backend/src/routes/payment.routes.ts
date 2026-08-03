@@ -1,12 +1,18 @@
 import { Router } from "express";
-import Stripe from "stripe";
+import { getStripe } from "../services/stripe.service";
 
 const router = Router();
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
-
 router.post("/create-payment-intent", async (req, res) => {
   try {
+    const stripe = getStripe();
+
+    if (!stripe) {
+      return res.status(503).json({
+        error: "Serviço de pagamento indisponível.",
+      });
+    }
+
     const { amount } = req.body;
 
     const paymentIntent = await stripe.paymentIntents.create({
@@ -31,6 +37,14 @@ router.post("/create-payment-intent", async (req, res) => {
 
 router.post("/create-pix-payment-intent", async (req, res) => {
   try {
+    const stripe = getStripe();
+
+    if (!stripe) {
+      return res.status(503).json({
+        error: "Serviço de pagamento indisponível.",
+      });
+    }
+
     const { amount } = req.body;
 
     const paymentIntent = await stripe.paymentIntents.create({
@@ -55,13 +69,9 @@ router.post("/create-pix-payment-intent", async (req, res) => {
 
     res.json({
       clientSecret: confirmedIntent.client_secret,
-
       paymentIntentId: confirmedIntent.id,
-
       qrCode: confirmedIntent.next_action?.pix_display_qr_code?.image_url_png,
-
       pixCode: confirmedIntent.next_action?.pix_display_qr_code?.data,
-
       instructionsUrl:
         confirmedIntent.next_action?.pix_display_qr_code
           ?.hosted_instructions_url,
@@ -78,6 +88,14 @@ router.post("/create-pix-payment-intent", async (req, res) => {
 
 router.get("/payment-status/:id", async (req, res) => {
   try {
+    const stripe = getStripe();
+
+    if (!stripe) {
+      return res.status(503).json({
+        error: "Serviço de pagamento indisponível.",
+      });
+    }
+
     const paymentIntent = await stripe.paymentIntents.retrieve(req.params.id);
 
     res.json({
