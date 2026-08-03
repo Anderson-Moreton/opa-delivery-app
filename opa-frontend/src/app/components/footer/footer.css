@@ -81,10 +81,32 @@
   color: rgb(248, 88, 88);
 }
 
-/* ========================= */
-/* TABLET GRANDE */
-/* ========================= */
+/* Desenvolvedor */
+.developer-credit {
+  margin-top: 1.0rem;
+  text-align: center;
+}
 
+.developer-credit p {
+  margin: 0;
+  font-size: 1rem;
+  color: #cfcfcf;
+}
+
+.developer-credit a {
+  color: #f8c537;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+  margin-right: 25px;
+}
+
+.developer-credit a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+/* TABLET GRANDE */
 @media (max-width: 1024px) {
   .logoOpa img {
     height: 90px;
@@ -116,10 +138,7 @@
   }
 }
 
-/* ========================= */
 /* TABLET */
-/* ========================= */
-
 @media (max-width: 768px) {
   .logoOpa img {
     height: 80px;
@@ -151,10 +170,7 @@
   }
 }
 
-/* ========================= */
 /* MOBILE */
-/* ========================= */
-
 @media (max-width: 620px) {
   .row {
     flex-direction: column;
@@ -215,10 +231,7 @@
   }
 }
 
-/* ========================= */
 /* MOBILE PEQUENO */
-/* ========================= */
-
 @media (max-width: 400px) {
   .logoOpa img {
     height: 55px;
