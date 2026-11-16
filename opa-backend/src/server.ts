@@ -22,7 +22,13 @@ import favoriteRoutes from "./routes/favorite.routes";
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: ["https://opa-delivery-app.vercel.app", "http://localhost:4200"],
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  }),
+);
 
 app.use(express.json());
 
