@@ -1,23 +1,16 @@
 import "dotenv/config";
 
 import express from "express";
-
 import cors from "cors";
 
 import { pool } from "./database/connection";
 
 import productRoutes from "./routes/product.routes";
-
 import categoryRoutes from "./routes/category.routes";
-
 import authRoutes from "./routes/auth.routes";
-
 import orderRoutes from "./routes/order.routes";
-
 import paymentRoutes from "./routes/payment.routes";
-
 import contactRoutes from "./routes/contact.routes";
-
 import favoriteRoutes from "./routes/favorite.routes";
 
 const app = express();
@@ -44,12 +37,12 @@ app.use("/payments", paymentRoutes);
 /* CONTACT ROUTES */
 app.use("/contact", contactRoutes);
 
-/* FAVORITE ROUTES  */
+/* FAVORITES ROUTES */
 app.use("/favorites", favoriteRoutes);
 
 /* TEST ROUTE */
 app.get("/products-test", (req, res) => {
-  res.send("products route works");
+  res.send("Products route works");
 });
 
 /* PRODUCTS ROUTES */
@@ -62,17 +55,18 @@ app.use("/categories", categoryRoutes);
 app.get("/", async (req, res) => {
   try {
     const connection = await pool.getConnection();
-
     connection.release();
 
     res.send("OPA Backend + MySQL");
   } catch (error) {
+    console.error("Database connection error:", error);
     res.status(500).send("Database connection error");
   }
 });
 
 /* SERVER */
 const PORT = Number(process.env.PORT) || 3333;
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
